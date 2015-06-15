@@ -58,11 +58,13 @@ public class Engine {
         if (file.exists()) {
             file.createNewFile();
         }
-        Writer writer = new BufferedWriter(new FileWriter(file));
-        String command1 = "curl -H \"Content-Type: application/json\" -d ";
-        String command2 = "10.8.95.31:8099/api/group/new";
-        for (Group group : groupList) {
-            writer.write(command1 + "'" + JsonWriter.writeCompact(group) + "' " + command2 + "\n");
+
+        String command1 = "curl -H \"'Content-Type': 'application/json'\" --data ";
+        String command2 = "http://10.8.95.31:8099/api/group/new";
+        for (int i = 0; i < groupList.size(); i++) {
+            Writer writer = new BufferedWriter(new FileWriter(file, true));
+            writer.append(command1 + "\"" + JsonWriter.writeCompact(groupList.get(i)).replace("\"", "'") + "\" " + command2 + "\n");
+            writer.flush();
         }
     }
 }

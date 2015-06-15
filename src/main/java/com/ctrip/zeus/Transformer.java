@@ -24,6 +24,7 @@ import java.util.Set;
 public class Transformer {
     private static final String REDIRECT = "Redirect rule is not supported.";
     private static final String REWRITE = "More than one rewrite rule is found.";
+    private static final String BACK_SLASH = "\\\\";
 
     private final Set<String> visitedGroup = new HashSet<String>();
     private final List<Rule> invalidRules = new ArrayList<Rule>();
@@ -33,9 +34,10 @@ public class Transformer {
         List<Group> groups = new ArrayList<Group>();
         int i = 0;
         for (Rule rule : rules) {
-            Group g = transform("Gonglue" + i++, rule, virtualServerId, groupServers);
+            Group g = transform("Gonglue" + i, rule, virtualServerId, groupServers);
             if (g == null)
                 continue;
+            i++;
             ModelFiller.fillGroup(g);
             groups.add(g);
         }
@@ -53,7 +55,7 @@ public class Transformer {
     }
 
     private Group transform(String groupName, Rule rule, Long virtualServerId, List<GroupServer> groupServers) {
-        Group group = new Group().setName(groupName);
+        Group group = new Group().setName(groupName).setAppId("000000");
         if (rule.getAction().getType().equals("Redirect")) {
             reportError(rule, REDIRECT);
             return null;
@@ -72,12 +74,14 @@ public class Transformer {
     private GroupSlb transformRule(Long virtualServerId, Rule rule) {
         String path = "";
         if (rule.getMatch().getUrl().startsWith("^")) {
-            path += "^/" + rule.getMatch().getUrl().substring(1);
+            path += "^/" + rule.getMatch().getUrl().substring(1).replaceAll("\\/", "/");
+            path = path.replaceAll(BACK_SLASH + BACK_SLASH, BACK_SLASH + BACK_SLASH + BACK_SLASH + BACK_SLASH);
         }
-        GroupSlb groupSlb = new GroupSlb().setPath("~*" + path)
+        GroupSlb groupSlb = new GroupSlb().setPath("~* \"" + path + "\"")
+                .setSlbId(1L)
                 .setVirtualServer(new VirtualServer().setId(virtualServerId));
 
-        String in = "(?i)" + path;
+        String in = "\"(?i)" + path + "\"";
         String out = rule.getAction().getUrl().replaceAll("\\{R:([0-9]*)\\}", "\\$$1");
         String appendQueryString;
         if ((appendQueryString = rule.getAction().getAppendQueryString()) != null
