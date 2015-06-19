@@ -32,15 +32,9 @@ public class Transformer {
 
     public List<Group> transform(List<Rule> rules, Long virtualServerId, List<GroupServer> groupServers) {
         List<Group> groups = new ArrayList<Group>();
-        int i = 0;
-        for (Rule rule : rules) {
-            Group g = transform("Gonglue" + i, rule, virtualServerId, groupServers);
-            if (g == null)
-                continue;
-            i++;
-            ModelFiller.fillGroup(g);
-            groups.add(g);
-        }
+        Group g = transform("Gonglue", rules, virtualServerId, groupServers);
+        ModelFiller.fillGroup(g);
+        groups.add(g);
         try {
             System.out.println("[INFO] Write invalid rules to invalid-rules.xml.");
             exportInvalidRules();
@@ -54,8 +48,32 @@ public class Transformer {
         return rewriteRules;
     }
 
-    private Group transform(String groupName, Rule rule, Long virtualServerId, List<GroupServer> groupServers) {
+    private Group transform(String groupName, List<Rule> rule, Long virtualServerId, List<GroupServer> groupServers) {
         Group group = new Group().setName(groupName).setAppId("000000");
+        group.addGroupSlb(transformRule(virtualServerId, rule));
+        for (GroupServer groupServer : groupServers) {
+            group.addGroupServer(groupServer);
+        }
+        return group;
+    }
+
+    private GroupSlb transformRule(Long virtualServerId, List<Rule> rules) {
+        StringBuilder sb = new StringBuilder();
+        for (Rule rule: rules) {
+            String rewrite = generateRewrite(rule);
+            if (rewrite == null)
+                continue;
+            sb.append(rewrite + ";");
+        }
+        String rewrite = sb.toString();
+        GroupSlb groupSlb = new GroupSlb().setPath("~* /")
+                .setSlbId(1L)
+                .setRewrite(rewrite.substring(0, rewrite.length() - 2))
+                .setVirtualServer(new VirtualServer().setId(virtualServerId));
+        return groupSlb;
+    }
+
+    public String generateRewrite(Rule rule) {
         if (rule.getAction().getType().equals("Redirect")) {
             reportError(rule, REDIRECT);
             return null;
@@ -64,22 +82,11 @@ public class Transformer {
             reportError(rule, REWRITE);
             return null;
         }
-        group.addGroupSlb(transformRule(virtualServerId, rule));
-        for (GroupServer groupServer : groupServers) {
-            group.addGroupServer(groupServer);
-        }
-        return group;
-    }
-
-    private GroupSlb transformRule(Long virtualServerId, Rule rule) {
         String path = "";
         if (rule.getMatch().getUrl().startsWith("^")) {
             path += "^/" + rule.getMatch().getUrl().substring(1).replaceAll("\\/", "/");
             path = path.replaceAll(BACK_SLASH + BACK_SLASH, BACK_SLASH + BACK_SLASH + BACK_SLASH + BACK_SLASH);
         }
-        GroupSlb groupSlb = new GroupSlb().setPath("~* \"" + path + "\"")
-                .setSlbId(1L)
-                .setVirtualServer(new VirtualServer().setId(virtualServerId));
 
         String in = "\"(?i)" + path + "\"";
         String out = rule.getAction().getUrl().replaceAll("\\{R:([0-9]*)\\}", "\\$$1");
@@ -88,11 +95,9 @@ public class Transformer {
                 && appendQueryString.equals("false")) {
             out = out + "?";
         }
-
-        groupSlb.setRewrite(in + " " + out);
         visitedGroup.add(rule.getName());
         rewriteRules.add(new RewriteRule().setIn(in).setOut(out).setRuleName(rule.getName()));
-        return groupSlb;
+        return in + " " + out;
     }
 
     private void exportInvalidRules() throws IOException, JAXBException {
