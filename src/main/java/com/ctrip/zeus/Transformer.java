@@ -1,9 +1,10 @@
 package com.ctrip.zeus;
 
+import com.ctrip.zeus.config.entity.Rule;
+import com.ctrip.zeus.config.entity.Rules;
 import com.ctrip.zeus.model.ModelFiller;
 import com.ctrip.zeus.model.RewriteRule;
-import com.ctrip.zeus.model.config.Rule;
-import com.ctrip.zeus.model.config.Rules;
+
 import com.ctrip.zeus.model.entity.Group;
 import com.ctrip.zeus.model.entity.GroupServer;
 import com.ctrip.zeus.model.entity.GroupSlb;
@@ -90,9 +91,9 @@ public class Transformer {
 
         String in = "\"(?i)" + path + "\"";
         String out = rule.getAction().getUrl().replaceAll("\\{R:([0-9]*)\\}", "\\$$1");
-        String appendQueryString;
+        Boolean appendQueryString;
         if ((appendQueryString = rule.getAction().getAppendQueryString()) != null
-                && appendQueryString.equals("false")) {
+                && (!appendQueryString.booleanValue())) {
             out = out + "?";
         }
         visitedGroup.add(rule.getName());
@@ -111,7 +112,7 @@ public class Transformer {
 
         Rules rules = new Rules();
         for (Rule invalidRule : invalidRules) {
-            rules.getRule().add(invalidRule);
+            rules.addRule(invalidRule);
         }
 
         File file = new File("invalid-rules.xml");

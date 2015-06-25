@@ -1,0 +1,2160 @@
+<rules>
+    <!--银联玩美-->
+    <rule name="银联玩美">
+        <match url="^special/wanmei.html(\?(.*))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/Activities/SeaIland/SeaIland/WanMei" appendQueryString="true" />
+    </rule>
+    <!--BMW-->
+    <rule name="BMW">
+        <match url="^special/BMW.html(\?(.*))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/Activities/SeaIland/SeaIland/bmw" appendQueryString="true" />
+    </rule>
+    <!--旅游局官网 昆明-->
+    <rule name="kuming">
+        <match url="^special/kunming.html(\?(.*))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/Activities/Tourism/TourismStatic/kuming" appendQueryString="true" />
+    </rule>
+    <!--Destguides繁体中文站点全站301[*必须放到所有规则最前面!!*] st-->
+    <rule name="繁体站点301跳转" stopProcessing="true">
+        <match url="(.*)" />
+        <conditions>
+            <add input="{HTTP_HOST}" pattern="^(youtest2.dev.sh.ctriptravel.com||destguides.big5.ctrip.com||big5.destguides.ctrip.com)$" />
+        </conditions>
+        <action type="Redirect" url="http://you.ctrip.com/{R:1}" redirectType="Permanent" />
+    </rule>
+    <!--Destguides繁体中文站点全站301 end-->
+    <!--301Begin-->
+    <rule name="目的地_酒店地图">
+        <match url="^map/hotels/([a-z,A-Z]{0,100}[0-9]+).html$" ignoreCase="true" />
+        <action type="Redirect" url="/hotels/{R:1}/map.html" appendQueryString="true" />
+    </rule>
+    <rule name="目的地_图片列表">
+        <match url="^photos/sight/([a-z,A-Z]{0,100})([0-9]+)/null$" ignoreCase="true" />
+        <action type="Redirect" url="photos/{R:1}{R:2}/r{R:2}.html" appendQueryString="true" />
+    </rule>
+    <rule name="周末游主页面">
+        <match url="^around/?$" ignoreCase="true" />
+        <action type="Redirect" url="http://weekend.ctrip.com/around/" appendQueryString="true" />
+    </rule>
+    <rule name="周末游页面">
+        <match url="^around/([\s\S]*)$" ignoreCase="true" />
+        <action type="Redirect" url="http://weekend.ctrip.com/around/{R:1}" appendQueryString="true" />
+    </rule>
+    <!--301End-->
+    <rule name="好酒店首页">
+        <match url="^hotels/([a-z,A-Z]{0,100})?([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/tophotelsite/list/list?districtid={R:2}" appendQueryString="false" />
+    </rule>
+    <rule name="好酒店主题详情页">
+        <match url="^hotels/([a-z,A-Z]{0,100})?([0-9]+)/Details-([0-9]+)?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/tophotelsite/topic/topic?districtid={R:2}&amp;topicId={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="好酒店列表_分类筛选等">
+        <match url="^hotels/([a-z,A-Z]{0,100})?([0-9]+)/(list[a-z,A-Z,0-9,\-]{0,100}).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/tophotelsite/list/list?districtId={R:2}&amp;filters={R:3}" appendQueryString="false" />
+    </rule>
+
+    <rule name="好酒店地图">
+        <match url="^hotels/([a-z,A-Z]{0,100})?([0-9]+)/map(-([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/tophotelsite/map/map?districtId={R:2}&amp;areaId={R:4}" appendQueryString="true" />
+    </rule>
+    <rule name="好酒店榜单页面">
+        <match url="^hotels/([a-z,A-Z]{0,100})?([0-9]+)/top-([a-z,A-Z]{1,100})?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/tophotelsite/list/toprankhotel?districtId={R:2}&amp;type={R:3}" appendQueryString="true" />
+    </rule>
+    <rule name="/group/topic_rewrite" stopProcessing="true">
+        <match url="^group/topic(/)?$" ignoreCase="true" />
+        <action type="Redirect" url="http://you.ctrip.com/groups" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_城市_景点_概述_Rewrite1" stopProcessing="true">
+        <match url="^spotlist/([a-z,A-Z]{0,100})?([0-9]+)(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Redirect" url="http://you.ctrip.com/sight/{R:1}{R:2}.html" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_景点详情页_Rewrite1" stopProcessing="true">
+        <match url="^spot/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)(-s([0-9]+))?(-([a-z]))?(-([a-z]))?(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Redirect" url="http://you.ctrip.com/sight/{R:1}{R:2}/{R:3}.html" appendQueryString="false" />
+    </rule>
+    <!--<rule name="TTD_目的地_景点详情页_Rewrite2" stopProcessing="true">
+          <match url="^spot/([0-9]+)((/|-)s([0-9]+))?(-([a-z]))?(-([a-z]))?(-p([0-9]+))?.html$" ignoreCase="true" />
+          <action type="Redirect" url="http://you.ctrip.com/sight/10000/{R:1}.html" appendQueryString="false" />
+        </rule>-->
+    <rule name="TTD_目的地_景点列表页_Rewrite2" stopProcessing="true">
+        <match url="^spotlist/([a-z,A-Z]{0,100})?([0-9]+)(/s([0-9]+))?(-([a-z]))?(-([a-z]))?(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Redirect" url="http://you.ctrip.com/sight/{R:1}{R:2}.html" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_城市_首页_Rewrite1" stopProcessing="true">
+        <match url="^districts/([a-z,A-Z]{0,100})?([0-9]+)(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Redirect" url="http://you.ctrip.com/place/{R:1}{R:2}.html" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_城市_首页_Rewrite3" stopProcessing="true">
+        <match url="^spot/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)(/s([0-9]+))?(-([a-z]))?(-([a-z]))?(-p([0-9]+)).html$" ignoreCase="true" />
+        <action type="Redirect" url="http://you.ctrip.com/sight/{R:1}{R:2}/{R:3}.html" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_城市_首页_Rewrite2" stopProcessing="true">
+        <match url="^spot/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)(-c([0-9]+))?.html([#,a-z,A-Z])?$" ignoreCase="true" />
+        <action type="Redirect" url="http://you.ctrip.com/sight/{R:1}{R:2}/{R:3}.html" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_餐馆详情页_Rewrite" stopProcessing="true">
+        <match url="^restaurant_review-d([0-9]+)-([a-z,A-z])([a-z,A-z]{0,1})([0-9]{0,15})([a-z,A-Z,0-9,\-]{0,20})-([a-z,A-z,0-9,\:]{0,100}).html$" ignoreCase="false" />
+        <action type="Redirect" url="http://you.ctrip.com/food/district{R:1}/{R:4}.html" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_景点详情页_Rewrite" >
+        <match url="^(attraction)_review-d([0-9]+)-([a-z,A-z])([0-9]{0,15})([a-z,A-Z,0-9,\-]{0,20})-([a-z,A-z,0-9,_,\:]{0,100}).html$" ignoreCase="false" />
+        <action type="Rewrite" url="/destinationsite/sight/poidetail?districtid={R:2}&amp;sightId={R:4}" appendQueryString="false"  />
+    </rule>
+    <rule name="已导入的规则 18_Rewrite" stopProcessing="true">
+        <match url="^(tourism)-d([a-z,0-9,A-Z]+)-([a-z,A-z,0-9,_,\:\/\-]+).html$" ignoreCase="false" />
+        <action type="Redirect" url="http://you.ctrip.com/place/{R:3}{R:2}.html" appendQueryString="false" redirectType="Permanent" />
+    </rule>
+    <rule name="游记首页_Rewrite" stopProcessing="true">
+        <match url="^journals.aspx$" ignoreCase="false" />
+        <action type="Redirect" url="http://you.ctrip.com/travels/" appendQueryString="false" redirectType="Permanent" />
+    </rule>
+    <rule name="已导入的规则（概况）39_Rewrite" stopProcessing="true">
+        <match url="^(overview)-d([a-z,0-9,A-Z]+)-([a-z,A-z,0-9,\:\/\-]+).html$" ignoreCase="false" />
+        <action type="Redirect" url="http://you.ctrip.com/summary/{R:3}{R:2}.html" appendQueryString="false" redirectType="Permanent" />
+    </rule>
+    <rule name="餐馆列表规则 57_Rewrite" stopProcessing="true">
+        <match url="^restaurants-d([a-z,0-9,A-Z]+)-([a-z,A-z,0-9,\:\/_\-]+).html$" ignoreCase="false" />
+        <action type="Redirect" url="http://you.ctrip.com/restaurant/{R:2}{R:1}.html" appendQueryString="false" redirectType="Permanent" />
+    </rule>
+    <rule name="已导入的规则（交通） 42_Rewrite" stopProcessing="true">
+        <match url="^(traffic)-d([a-z,0-9,A-Z]+)-([a-z,A-z,0-9,\:\/\-]+).html$" ignoreCase="false" />
+        <action type="Redirect" url="http://you.ctrip.com/traffic/{R:3}{R:2}.html" appendQueryString="false" redirectType="Permanent" />
+    </rule>
+    <rule name="已导入的规则 18_2_Rewrite" stopProcessing="true">
+        <match url="^(localmaps)-d([a-z,0-9,A-Z]+)-([a-z,A-z,0-9,_,\:\/\-]+).html$" ignoreCase="false" />
+        <action type="Redirect" url="http://you.ctrip.com/map/{R:3}{R:2}.html" appendQueryString="false" redirectType="Permanent" />
+    </rule>
+    <rule name="GS_UrlReg 问答详情页_old1.5_Rewrite" >
+        <match url="^ask/question/(d([0-9]+)-)?([0-9]+)(-([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/AskSite/Home/AskDetail?AskId={R:3}&amp;p={R:5}" appendQueryString="false" />
+    </rule>
+    <!-- 领队相关页面 st -->
+    <rule name="领队首页" stopProcessing="true">
+        <match url="^tourleaders/?$" ignoreCase="true" />
+        <action type="Redirect" url="http://vacations.ctrip.com/tourleader/" appendQueryString="true" />
+    </rule>
+    <rule name="领队个人主页" stopProcessing="true">
+        <match url="^Activities/TourLeader/Leader/$" ignoreCase="true" />
+        <action type="Redirect" url="http://vacations.ctrip.com/TourLeader/Leader/" appendQueryString="true" />
+    </rule>
+    <!-- 领队相关页面 end -->
+
+    <!-- URL重写 end -->
+    <rule name="已导入的规则 1">
+        <match url="^[\/|\\]{0,1}$" ignoreCase="true" />
+        <action type="Rewrite" url="/Home/Index" />
+    </rule>
+    <rule name="已导入的规则 2">
+        <match url="^members1/$" ignoreCase="true" />
+        <action type="Rewrite" url="/members/myprofile.aspx" />
+    </rule>
+    <rule name="已导入的规则 2.1">
+        <match url="^members/profiledefault.aspx$" ignoreCase="true" />
+        <action type="Rewrite" url="/members/myprofile.aspx" />
+    </rule>
+    <rule name="已导入的规则 3">
+        <match url="^(community|explore|traveler|community\/blog)/$" ignoreCase="true" />
+        <action type="Rewrite" url="/{R:1}/default.aspx" />
+    </rule>
+    <rule name="已导入的规则 4">
+        <match url="^hotels/$" ignoreCase="true" />
+        <action type="Rewrite" url="/You/hotels/index.aspx" />
+    </rule>
+    <rule name="规则 4.7 与目的地无关的类型扩展">
+        <match url="^(forums)-z([0-9]+)-c([0-9]+)-([a-z,A-z,0-9,_\:\/\-]+).html$" ignoreCase="false" />
+        <action type="Rewrite" url="/You/{R:1}/journalforum.aspx?zone={R:2}&amp;groupid={R:3}&amp;stype={R:4}" appendQueryString="false" />
+    </rule>
+    <rule name="规则 4.6 与目的地无关的类型扩展">
+        <match url="^(forums)-i([0-9]+)-([a-z,A-z,0-9,_\:\/\-]+).html$" ignoreCase="false" />
+        <action type="Rewrite" url="/You/{R:1}/forums.aspx?forumid={R:2}&amp;stype={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="规则 4.5 与目的地无关的类型">
+        <match url="^forums-i([a-z,A-z,0-9,_\:\/\-]+).html$" ignoreCase="false" />
+        <action type="Rewrite" url="/You/qa/Forum.aspx?i={R:1}" appendQueryString="false" />
+    </rule>
+    <rule name="已导入的规则 5_0">
+        <match url="^members/([\w]+)(/)(travel)?$" ignoreCase="true" />
+        <action type="Rewrite" url="/members/journals/default.aspx?screenname={R:1}" appendQueryString="true" />
+    </rule>
+    <!--<rule name="已导入的规则 5">
+      <match url="^members/([\w]+)(/)?(favorite|contacts|events|reviews|photos|videos|qa|forums|itinerary|journals|golists|travelmapimage|friends|confirm|introduction|news|travel|userscore)?$" ignoreCase="true" />
+      <action type="Rewrite" url="/members{R:2}{R:3}/default.aspx?screenname={R:1}" appendQueryString="true" />
+    </rule>
+    <rule name="已导入的规则 5.1">
+      <match url="^members/([\w]+)(/)?friends(favorite|contacts|events|reviews|photos|videos|qa|forums|itinerary|journals|golists|travelmapimage|friends|confirm|introduction|news)?$" ignoreCase="true" />
+      <action type="Rewrite" url="/members{R:2}{R:3}/profiledefault.aspx?screenname={R:1}" appendQueryString="false" />
+    </rule>
+    <rule name="已导入的规则 6">
+      <match url="^profile/([\w]+)(/)?(favorite|contacts|events|reviews|photos|qa|forums|itinerary|journals|golists|travelmapimage|friends|confirm|news|videos)?$" ignoreCase="true" />
+      <action type="Rewrite" url="/members{R:2}{R:3}/profiledefault.aspx?screenname={R:1}" appendQueryString="false" />
+    </rule>-->
+    <!--新版个人主页开始-->
+    <rule name="首页">
+        <match url="^members/([a-zA-Z0-9_.]+)?$" ignoreCase="true" />
+        <action type="Rewrite" url="/membersite?profileurlno={R:1}" appendQueryString="true" />
+    </rule>
+    <rule name="网友动向">
+        <match url="^members/([a-zA-Z0-9_.]+)/friendsnews" ignoreCase="true" />
+        <action type="Rewrite" url="/membersite/Home/FriendsTrends?profileurlno={R:1}" appendQueryString="true" />
+    </rule>
+    <rule name="相册">
+        <match url="^members/([a-zA-Z0-9_.]+)/photos" ignoreCase="true" />
+        <action type="Rewrite" url="/membersite/AlbumTag/AlbumList?profileurlno={R:1}" appendQueryString="true" />
+    </rule>
+    <rule name="游记">
+        <match url="^members/([a-zA-Z0-9_.]+)/journals" ignoreCase="true" />
+        <action type="Rewrite" url="/membersite/TravelTag/TravelNotes?profileurlno={R:1}" appendQueryString="true" />
+    </rule>
+    <rule name="问答">
+        <match url="^members/([a-zA-Z0-9_.]+)/qa" ignoreCase="true" />
+        <action type="Rewrite" url="/membersite/AskTag/AskList?profileurlno={R:1}" appendQueryString="true" />
+    </rule>
+    <rule name="收藏">
+        <match url="^members/([a-zA-Z0-9_.]+)/favorite" ignoreCase="true" />
+        <action type="Rewrite" url="/membersite/FavoriteTag/FavoriteList?profileurlno={R:1}" appendQueryString="true" />
+    </rule>
+    <rule name="点评">
+        <match url="^members/([a-zA-Z0-9_.]+)/reviews" ignoreCase="true" />
+        <action type="Rewrite" url="/membersite/CommentTag/CommentList?profileurlno={R:1}" appendQueryString="true" />
+    </rule>
+    <rule name="结伴">
+        <match url="^members/([a-zA-Z0-9_.]+)/contacts" ignoreCase="true" />
+        <action type="Rewrite" url="/membersite/EventTag/EventList?profileurlno={R:1}" appendQueryString="true" />
+    </rule>
+    <!--新版个人主页结束-->
+    <rule name="已导入的规则 7">
+        <match url="^(travel|forums|contacts|allreviews|photos)-review-d([0-9]+)-([a-z,A-z])([0-9]{0,15})([a-z,A-Z,0-9,\-]{0,20})-([a-z,A-z,0-9,\:]{0,100}).html$" ignoreCase="false" />
+        <action type="Rewrite" url="/You/{R:1}/ReviewHome.aspx?{R:3}id={R:4}&amp;stype={R:5}" appendQueryString="false" />
+    </rule>
+    <rule name="已导入的规则 8">
+        <match url="^xiangqu-g([0-9]+)-c([a-z,A-Z,0-9,\-]{0,10})-([a-z,A-z]{0,20}).html$" ignoreCase="false" />
+        <action type="Rewrite" url="/You/xiangqu/showdetail.aspx?area={R:1}&amp;stype={R:2}" appendQueryString="false" />
+    </rule>
+    <rule name="已导入的规则 9_游记详情页">
+        <match url="^show(journal)-d([0-9]+)-([a-z,A-z])([0-9]{0,15})([a-z,A-Z,0-9,\-]{0,20})-([a-z,A-z,0-9,\:]{0,90}).html$" ignoreCase="false" />
+        <action type="Rewrite" url="/TravelSite/Home/Travel?TravelId={R:4}" appendQueryString="false" />
+    </rule>
+    <rule name="已导入的规则 10">
+        <match url="^members/([\w]+)/travelmap(-)?([a-z,A-Z]+)?(/)?(\d*)$" ignoreCase="true" />
+        <action type="Rewrite" url="/members/travelmap/map{R:3}.aspx?profileurlno={R:1}&amp;district={R:5}" appendQueryString="false" />
+    </rule>
+    <rule name="已导入的规则 11">
+        <match url="^profile/([\w]+)/travelmap(-)?([a-z,A-Z]+)?$" ignoreCase="true" />
+        <action type="Rewrite" url="/members/travelmap/profilemap{R:3}.aspx?profileurlno={R:1}" appendQueryString="false" />
+    </rule>
+    <rule name="已导入的规则 12">
+        <match url="^show(event)-d([0-9]+)-([a-z,A-z])([0-9]{0,15})([a-z,A-Z,0-9,\-]{0,20})-([a-z,A-z,0-9,\:]{0,100}).html$" ignoreCase="false" />
+        <action type="Rewrite" url="/You/{R:1}s/ReviewHome.aspx?{R:3}id={R:4}&amp;stype={R:5}" appendQueryString="false" />
+    </rule>
+    <rule name="已导入的规则 25">
+        <match url="^showtopic-d(0)-i([0-9]+)-r([a-z,A-z,0-9,_\:\/\-]+).html$" ignoreCase="false" />
+        <action type="Rewrite" url="/You/qa/ForumDetail.aspx?i={R:2}&amp;r={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="已导入的规则forums 26">
+        <match url="^showtopic-i([0-9]+)-r([0-9]+)-([a-z,A-z,0-9,_\:\/\-]+)?.html$" ignoreCase="false" />
+        <action type="Rewrite" url="/You/forums/showforums.aspx?forumid={R:1}&amp;questionid={R:2}&amp;stype={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="已导入的规则 13">
+        <match url="^show(topic)-d([0-9]+)-([a-z,A-z])([0-9]{0,15})([a-z,A-Z,0-9,\-]{0,20})-([a-z,A-z,0-9,\:]{0,100}).html$" ignoreCase="false" />
+        <action type="Rewrite" url="/AskSite/Home/AskDetail?AskId={R:4}" appendQueryString="false" />
+    </rule>
+    <rule name="已导入的规则 14">
+        <match url="^(golist)-d([0-9]+)-([a-z,A-z])([0-9]{0,15})([a-z,A-Z,0-9,\-]{0,20})-([a-z,A-z,0-9,\:]{0,100}).html$" ignoreCase="false" />
+        <action type="Rewrite" url="/You/{R:1}s/ReviewHome.aspx?{R:3}id={R:4}&amp;stype={R:5}" appendQueryString="false" />
+    </rule>
+    <rule name="餐馆列表规则 59">
+        <match url="^restaurants-d([0-9]+)-s([a-z,A-Z,0-9,\-]{0,25})-c([a-z,A-Z,0-9,\-,\:,\,,\|]{0,1900})/([a-z,A-z,0-9,\:\-]{0,50}).html$" ignoreCase="false" />
+        <action type="Rewrite" url="/destinationsite/food/poilist?districtId={R:1}" appendQueryString="false" />
+    </rule>
+    <rule name="餐馆列表规则 56">
+        <match url="^restaurants-d([0-9]+)-s([a-z,A-Z,0-9,\-]{0,25})/([a-z,A-z,0-9,\:\-]{0,50}).html$" ignoreCase="false" />
+        <action type="Rewrite" url="/destinationsite/food/poilist?districtId={R:1}" appendQueryString="false" />
+    </rule>
+    <rule name="餐馆列表规则 58">
+        <match url="^userrestaurantreview-d([0-9]+)-([a-z,A-z])[a-z,A-z]{0,1}([0-9]{0,15})([a-z,A-Z,0-9,\-]{0,20})-([a-z,A-z,0-9,\:]{0,100}).html$" ignoreCase="false" />
+        <action type="Rewrite" url="destinationsite/food/poidetail?districtid={R:1}&amp;id={R:3}&amp;star=&amp;tourist=&amp;order=&amp;pagenow=" appendQueryString="false" />
+    </rule>
+    <rule name="已导入的规则 15">
+        <match url="^(hotel|restaurant)_review-d([0-9]+)-([a-z,A-z])([0-9]{0,15})([a-z,A-Z,0-9,\-]{0,20})-([a-z,A-z,0-9,_,\:]{0,100}).html$" ignoreCase="false" />
+        <action type="Rewrite" url="/You/{R:1}s/ReviewHome.aspx?{R:3}id={R:4}&amp;stype={R:5}" appendQueryString="false" />
+    </rule>
+    <rule name="已导入的规则 16">
+        <match url="^user(dest|hotel|restaurant)review-d([0-9]+)-([a-z,A-z])([0-9]{0,15})([a-z,A-Z,0-9,\-]{0,20})-([a-z,A-z,0-9,_,\:]{0,100}).html$" ignoreCase="false" />
+        <action type="Rewrite" url="/You/{R:1}s/ReviewHome.aspx?{R:3}id={R:4}&amp;stype={R:5}" appendQueryString="false" />
+    </rule>
+    <rule name="已导入的规则 23">
+        <match url="^photos-d([a-z,A-Z,0-9,_\:\-\/]{0,200}).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/You/photos/reviewhome.aspx?paras={R:1}" appendQueryString="false" />
+    </rule>
+    <rule name="视频规则">
+        <match url="^videos([a-z,A-Z,0-9,_\:\-\/]{0,200}).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/members/videos/showvideos.aspx?paras={R:1}" appendQueryString="false" />
+    </rule>
+    <rule name="已导入的规则 24">
+        <match url="^(qa)-d(0)-i([a-z,A-z,0-9,_\:\/\-]+).html$" ignoreCase="false" />
+        <action type="Rewrite" url="/You/{R:1}/Forum.aspx?district={R:2}&amp;i={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="合并酒店分页至酒店default页面">
+        <match url="^(hotels)-d([0-9]+)-s([a-z,A-Z,0-9,\-]{0,25})/([a-z,A-z,0-9,\:\-]{0,50}).html$" ignoreCase="false" />
+        <action type="Rewrite" url="/You/hotels/default.aspx?district={R:2}&amp;stype={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="已导入的规则 17">
+        <match url="^(qa|forums|restaurants|events|golists|journals|contacts|allreviews)-d([0-9]+)-s([a-z,A-Z,0-9,\-]{0,25})/([a-z,A-z,0-9,\:\-]{0,50}).html$" ignoreCase="false" />
+        <action type="Rewrite" url="/You/{R:1}/ShowDetail.aspx?district={R:2}&amp;stype={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="已导入的规则(明细) 39">
+        <match url="^(travel)-d([0-9]+)-s([a-z,A-Z,0-9,\-]{0,25})/([a-z,A-z,0-9,\:\-]{0,50}).html$" ignoreCase="false" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/Guide/Index?districtid={R:2}" appendQueryString="false" />
+    </rule>
+    <rule name="已导入的规则(列表)_指南38">
+        <match url="^(travel)-d([a-z,0-9,A-Z]+)-([a-z,A-z,0-9,\:\/\-]+).html$" ignoreCase="false" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/Guide/Index?districtid={R:2}" appendQueryString="false" />
+    </rule>
+    <rule name="已导入的规则（美食） 40">
+        <match url="^(delicacies)-d([a-z,0-9,A-Z]+)-([a-z,A-z,0-9,\:\/\-]+).html$" ignoreCase="false" />
+        <action type="Rewrite" url="/destinationsite/food/poilist?districtId={R:2}&amp;typeId=&amp;regionid=&amp;isPrice=&amp;suitId=&amp;pagenow=" appendQueryString="false" />
+    </rule>
+    <rule name="已导入的规则（购物） 41">
+        <match url="^(shopping_guide)-d([a-z,0-9,A-Z]+)-([a-z,A-z,0-9,\:\/\-]+).html$" ignoreCase="false" />
+        <action type="Rewrite" url="/destinationsite/shopping/index?districtid={R:2}" appendQueryString="false" />
+    </rule>
+    <rule name="已导入的规则（签证） 43">
+        <match url="^(visa)-d([a-z,0-9,A-Z]+)-([a-z,A-z,0-9,\:\/\-]+).html$" ignoreCase="false" />
+        <action type="Rewrite" url="/DestinationSite/TTDSecond/Visa?districtid={R:2}&amp;tab=" appendQueryString="false" />
+    </rule>
+    <rule name="已导入的规则 18">
+        <match url="^(guides|qa|hotels|zhusu|forums|restaurants|events|golists|journals|allreviews|photos|weekendtravel|weekenddestination|qalist|itineraries|shopping)-d([a-z,0-9,A-Z]+)-([a-z,A-z,0-9,_,\:\/\-]+).html$" ignoreCase="false" />
+        <action type="Rewrite" url="/You/ddefault.aspx?ctype={R:1}&amp;district={R:2}&amp;dstype={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="已导入的规则1 (游记板块) z c">
+        <match url="^journals-z([0-9]+)-c([0-9]+)-([a-z,A-z,0-9,_,\:\/\-]+).html$" ignoreCase="false" />
+        <action type="Rewrite" url="/You/journals.aspx?zone={R:1}&amp;group={R:2}&amp;stype={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="已导入的规则 (游记板块)">
+        <match url="^(journals)-p([a-z,0-9,A-Z]+)-([a-z,A-z,0-9,\:\/\-]+).html$" ignoreCase="false" />
+        <action type="Rewrite" url="/You/{R:1}/plate.aspx?plateid={R:2}" appendQueryString="false" />
+    </rule>
+    <rule name="已导入的规则 (游记板块) z">
+        <match url="^(journals)-z([a-z,0-9,A-Z]+)-([a-z,A-z,0-9,\:\/\-]+).html$" ignoreCase="false" />
+        <action type="Rewrite" url="/You/{R:1}/plate.aspx?plateid={R:2}" appendQueryString="false" />
+    </rule>
+    <rule name="已导入的规则 19">
+        <match url="^(tourism|guides|attractions|qa|hotels|forums|restaurants|events|golists|journals|contacts)-g([a-z,A-z,0-9,\:\/\-]+).html$" ignoreCase="false" />
+        <action type="Rewrite" url="/You/gdefault.aspx?ctype={R:1}&amp;region={R:2}" appendQueryString="false" />
+    </rule>
+    <rule name="已导入的规则 20">
+        <match url="^t/h-([a-z,0-9]+).jpg$" ignoreCase="true" />
+        <action type="Rewrite" url="/You/ebimage.aspx?hotel={R:1}" appendQueryString="false" />
+    </rule>
+    <rule name="已导入的规则 21">
+        <match url="^sitemap-(tourism|hotels|attractions|travel|qa|journals|guides).html" ignoreCase="true" />
+        <action type="Rewrite" url="/You/SitemapNavigate.aspx?type={R:1}" />
+    </rule>
+    <rule name="已导入的规则 22">
+        <match url="^alllocations-d([a-z,0-9,A-Z]+)-([a-z,A-z,0-9,\:\/\-]+).html$" ignoreCase="false" />
+        <action type="Rewrite" url="/You/AllLocations.aspx?district={R:1}&amp;ename={R:2}" />
+    </rule>
+    <rule name="已导入的规则 26">
+        <match url="^sitemap-d([0-9]+)-p([0-9]+)-(tourism|hotels|attractions|travel|qa|journals|guides).html" ignoreCase="true" />
+        <action type="Rewrite" url="/You/sitemapdetail.aspx?district={R:1}&amp;page={R:2}&amp;type={R:3}" />
+    </rule>
+    <rule name="已导入的规则 30">
+        <match url="^sitemap-([a-z,0-9]+)-([a-z,0-9]+)-t([\d]*)-p([\d]*).xml" ignoreCase="true" />
+        <action type="Rewrite" url="/You/sitemap.aspx?class={R:1}&amp;type={R:2}&amp;dd={R:3}&amp;page={R:4}" />
+    </rule>
+    <rule name="SearchRule1">
+        <match url="^wd/([^\./]+).html$" />
+        <action type="Rewrite" url="/search/default.aspx?q={R:1}" />
+    </rule>
+    <rule name="SearchRule2">
+        <match url="^wd/([^\.&amp;]+)/t([\w]*)-m([\d]+)-p([\d]+).html(#[\w]+)*$" />
+        <action type="Rewrite" url="/search/DetailList.aspx?q={R:1}&amp;t={R:2}&amp;m={R:3}&amp;p={R:4}{R:5}" />
+    </rule>
+    <rule name="已导入的规则 32">
+        <match url="^album-i([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/members/photos/ShowMemberPhotos.aspx?code={R:1}" />
+    </rule>
+    <rule name="已导入的规则photoreply 1">
+        <match url="^photo-i([0-9]+)([_\:\/\-,a-z,A-z,0-9]*).html$" ignoreCase="false" />
+        <action type="Rewrite" url="/You/photos/reviewhome.aspx?phsid={R:1}&amp;stype={R:2}" appendQueryString="false" />
+    </rule>
+    <rule name="已导入的规则 28">
+        <match url="^bookingphotos-d([a-z,A-Z,0-9,_\:\-\/]{0,200}).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/You/photos/showdetail.aspx?paras={R:1}" appendQueryString="false" />
+    </rule>
+    <rule name="API Rule">
+        <match url="^lpapi/(.*)$" ignoreCase="true" />
+        <action type="Rewrite" url="/You/API/LPOpenData.ashx" appendQueryString="false" />
+    </rule>
+    <rule name="已导入的规则 skiing">
+        <match url="^guides-t([a-z,0-9,A-Z]+)-([a-z,A-z,0-9,\:\/\-]+).html$" ignoreCase="false" />
+        <action type="Rewrite" url="/You/guides/reviewhome.aspx?guideid={R:1}&amp;stype={R:2}" appendQueryString="false" />
+    </rule>
+    <rule name="已导入的规则 mdownload">
+        <match url="^guide/m-download$" ignoreCase="true" />
+        <action type="Rewrite" url="/You/guides/cityGuidesDownload.aspx" appendQueryString="false" />
+    </rule>
+    <!-- New Url reg -->
+    <rule name="已导入的规则 mdownload2">
+        <match url="^guide/m-download$" ignoreCase="true" />
+        <action type="Rewrite" url="/You/guides/cityGuidesDownload.aspx" appendQueryString="false" />
+    </rule>
+    <!-- GS 1.5采用的新的URL规则 -->
+    <!-- 游记相关 st -->
+    <rule name="GS_UrlReg 游记首页">
+        <match url="^travels/?$" ignoreCase="true" />
+        <action type="Rewrite" url="/TravelSite/Home/Index" appendQueryString="false" />
+    </rule>
+    <rule name="GS_UrlReg 写游记页面(老的写游记页面URL)">
+        <match url="^members/journals/add-travels/?$" ignoreCase="true" />
+        <action type="Rewrite" url="/TravelSite/Member/WriteClassicTravel" appendQueryString="false" />
+    </rule>
+    <rule name="GS_UrlReg 游记详情页">
+        <match url="^travel/([0-9]+)(-p([0-9]+))?.html(\?(.*))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/TravelSite/Home/Travel?TravelId={R:1}" appendQueryString="true" />
+    </rule>
+    <rule name="GS_UrlReg 游记列表页(瀑布式列表展示)">
+        <match url="^travels/fall/?(i([0-9]+))?(t([0-9]+))?(p([0-9]+))?(g([0-9]+))?(.html)?$" ignoreCase="true" />
+        <action type="Rewrite" url="/TravelSite/Home/Index?Idea={R:2}&amp;Type={R:4}&amp;Plate={R:6}&amp;Group={R:8}" appendQueryString="false" />
+    </rule>
+    <!-- 游记相关 end -->
+
+    <!-- 问答相关 st -->
+    <rule name="问答列表页_201403">
+        <match url="^asks/((?!topics|tags|newquestion|result))([a-z,A-Z,0-9,-]+)(/p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/AskSite/Home/AskList?TagIds={R:2}&amp;p={R:4}" appendQueryString="true" />
+    </rule>
+    <!--<rule name="问答列表页_201312">
+          <match url="^asks/(c([0-9]+))?(-?t([0-9,-]+))?(/p([0-9]+))?.html$" ignoreCase="true" />
+          <action type="Rewrite" url="/AskSite/Home/AskList?TagIds={R:4}&amp;Type={R:2}&amp;p={R:6}" appendQueryString="false" />
+        </rule>-->
+    <!--<rule name="问答列表页_201312_2">
+            <match url="^asks/(t([0-9,-]+))?(/p([0-9]+))?.html$" ignoreCase="true" />
+            <action type="Rewrite" url="/AskSite/Home?TagIds={R:4}&amp;Type={R:2}" appendQueryString="false" />
+          </rule>-->
+    <!--<rule name="问答列表页_201306">
+          <match url="^asks/(([a-z,A-Z]{0,100})([0-9]+))?(-c([0-9]+))?(-p([0-9]+))?.html$" ignoreCase="true" />
+          <action type="Rewrite" url="/AskSite/Home/AskList?type={R:5}&amp;District={R:3}&amp;p={R:7}" appendQueryString="false" />
+        </rule>-->
+    <rule name="问答详情页_old1">
+        <match url="^qa-review-d([0-9]+)-r([0-9]+)-(p([0-9]+))-district.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/AskSite/Home/AskDetail?AskId={R:2}&amp;p={R:4}" appendQueryString="true" />
+    </rule>
+    <rule name="问答详情页_201306">
+        <match url="^asks/([a-z,A-Z,0-9]{0,200})/([0-9]+)(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/AskSite/Home/AskDetail?AskId={R:2}&amp;p={R:4}" appendQueryString="true" />
+    </rule>
+    <rule name="GS_UrlReg 问答首页_1">
+        <match url="^asks/?(/list/?)?$" ignoreCase="true" />
+        <action type="Rewrite" url="/AskSite/Home" appendQueryString="false" />
+    </rule>
+    <rule name="GS_UrlReg 问答首页2">
+        <match url="^asks/(t([0-9]+))?(l([0-9]+))?(d([0-9]+))?(p([0-9]+))?(/)?(\?(.*))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/AskSite/Home?p={R:8}{R:10}" appendQueryString="true" />
+    </rule>
+    <rule name="GS_UrlReg 问答首页_3">
+        <match url="^asks/c([0-9]+)(-p([0-9]+))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/AskSite/Home/?Type={R:1}&amp;p={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="GS_UrlReg 问答搜索页">
+        <match url="^asks/search/(p([0-9]+))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/AskSite/Home/AskList?p={R:2}" appendQueryString="true" />
+    </rule>
+    <rule name="GS_UrlReg 问答列表页">
+        <match url="^asks/list/(d([0-9]+))?(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/AskSite/Home/AskList?District={R:2}&amp;p={R:4}" appendQueryString="false" />
+    </rule>
+    <rule name="GS_UrlReg 问答首页_待回答">
+        <match url="^asks/?(/unanswered/?)?$" ignoreCase="true" />
+        <action type="Rewrite" url="/AskSite/Home" appendQueryString="false" />
+    </rule>
+    <rule name="GS_UrlReg 提问页面">
+        <match url="^add-question/?$" ignoreCase="true" />
+        <action type="Rewrite" url="/members/qa/newquestion.aspx" appendQueryString="false" />
+    </rule>
+    <rule name="GS_UrlReg 提问页面2">
+        <match url="^asks/newquestion.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/AskSite/Home/AskSubmit" appendQueryString="true" />
+    </rule>
+    <rule name="GS_UrlReg 目的地专家2">
+        <match url="^expert(/)?([0-9]+)?$" ignoreCase="true" />
+        <action type="Rewrite" url="/asksite/expert/" appendQueryString="false" />
+    </rule>
+    <rule name="GS_UrlReg 申请成为专家页面">
+        <match url="^expapplication/(d([0-9]+))?(f([0-9]+))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/asksite/expert/apply" appendQueryString="false" />
+    </rule>
+    <rule name="GS_UrlReg 申请成为专家页面2">
+        <match url="^do/expapplication.aspx$" ignoreCase="true" />
+        <action type="Rewrite" url="/asksite/expert/apply" appendQueryString="false" />
+    </rule>
+    <rule name="GS_UrlReg 旅行家页面">
+        <match url="^traveler(s)?/?(/[0-9]+)?$" ignoreCase="true" />
+        <action type="Rewrite" url="/You/traveler/list.aspx?type={R:2}" appendQueryString="false" />
+    </rule>
+    <rule name="GS_UrlReg 申请成为旅行家页面">
+        <match url="^jointraveler/?$" ignoreCase="true" />
+        <action type="Rewrite" url="/You/traveler/jointraveler.aspx?forumid={R:4}&amp;district={R:2}" appendQueryString="false" />
+    </rule>
+    <rule name="GS_UrlReg 问答详情页">
+        <match url="^ask/question/([0-9]+)(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/AskSite/Home/AskDetail?AskId={R:1}&amp;p={R:3}" appendQueryString="true" />
+    </rule>
+    <rule name="GS_UrlReg 问答_公告类详情页">
+        <match url="^ask(s)?/notice/([0-9]+)(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/You/qa/others.aspx?question={R:2}&amp;pageno={R:4}" appendQueryString="false" />
+    </rule>
+    <rule name="GS_UrlReg 问答_标签_专题_列表页">
+        <match url="^asks/(topic|tag)s(-l([a-z,A-z]{1}))?(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/AskSite/Home/{R:1}list?letter={R:3}&amp;p={R:5}" appendQueryString="true" />
+    </rule>
+    <rule name="GS_UrlReg 问答_提交成功页">
+        <match url="^asks/result.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/AskSite/Home/AskSubmitResult" appendQueryString="true" />
+    </rule>
+
+    <!-- 问答相关 end -->
+    <!-- 攻略 st -->
+    <rule name="GS_UrlReg 攻略首页">
+        <match url="^guides/?$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/ttdsecond/guidebook/index" appendQueryString="true" />
+    </rule>
+    <rule name="GS_UrlReg 攻略首页翻页">
+        <match url="^guides/(g([0-9]*))?(-d([0-9]+))?(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/ttdsecond/guidebook/index?GuideType={R:2}&amp;districtid={R:4}&amp;currentPageIndex={R:6}" appendQueryString="true" />
+    </rule>
+    <rule name="GS_UrlReg 攻略详情页_目的地">
+        <match url="^guide/d([0-9]+).html?$" ignoreCase="true" />
+        <action type="Rewrite" url="/You/guides/default.aspx?district={R:1}" appendQueryString="false" />
+    </rule>
+    <rule name="GS_UrlReg 攻略详情页_专题">
+        <match url="^guide/t([0-9]+).html?$" ignoreCase="true" />
+        <action type="Rewrite" url="/You/guides/reviewhome.aspx?guideid={R:1}" appendQueryString="false" />
+    </rule>
+    <!-- 攻略 end -->
+    <!-- 无线 st -->
+    <!--<rule name="GS_UrlReg 无线首页">
+      <match url="^app/?$" ignoreCase="true" />
+      <action type="Rewrite" url="/You/mobile/cityguide.aspx" appendQueryString="false" />
+    </rule> -->
+    <rule name="GS_UrlReg 无线_Android_城市下载列表页1">
+        <match url="^app/android/citylist/?$" ignoreCase="true" />
+        <action type="Rewrite" url="/You/mobile/androidcityguide.aspx" appendQueryString="false" />
+    </rule>
+    <!-- 无线 end -->
+    <!-- 结伴 st -->
+    <rule name="结伴首页">
+        <match url="^events/?$" ignoreCase="true" />
+        <action type="Rewrite" url="/DangdiSite/EventsHome/Home" appendQueryString="false" />
+    </rule>
+    <rule name="结伴列表页">
+        <match url="^events/(m([0-9]+))?-?(([a-z,A-Z]{0,100})([0-9]+)(c[0-9]+)?)?-?(t([0-9]+))?-?(p([0-9]+))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/DangdiSite/EventsList/EventsList?month={R:2}&amp;district={R:3}&amp;tagId={R:8}&amp;pageIndex={R:10}" appendQueryString="false" />
+    </rule>
+    <rule name="向导列表页">
+        <match url="^events/guide/([a-z,A-Z]{0,100})([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/DangdiSite/EventsList/GuideList?district={R:2}" appendQueryString="false" />
+    </rule>
+    <rule name="GS_UrlReg 结伴首页2">
+        <match url="^events/(d([0-9]+))(c([0-9]+))?(-p([0-9]+))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/CommunitySite/Activity/Home/Index?type=0&amp;d={R:2}&amp;city={R:4}&amp;page={R:6}" appendQueryString="false" />
+    </rule>
+    <rule name="GS_UrlReg 结伴首页_同城1">
+        <match url="^citywides/?(/p([0-9]+))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/CommunitySite/Activity/Home/Index?page={R:2}" appendQueryString="false" />
+    </rule>
+    <rule name="GS_UrlReg 结伴首页_同城2">
+        <match url="^citywides/(d([0-9]+))(c([0-9]+))?(-p([0-9]+))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/CommunitySite/Activity/Home/Index?city={R:4}&amp;page={R:6}" appendQueryString="true" />
+    </rule>
+    <rule name="GS_UrlReg 发表结伴">
+        <match url="^add-event/?$" ignoreCase="true" />
+        <action type="Rewrite" url="members/contacts/newevent.aspx" appendQueryString="false" />
+    </rule>
+    <rule name="GS_UrlReg 发表同城">
+        <match url="^add-citywide/?$" ignoreCase="true" />
+        <action type="Rewrite" url="/members/contacts/writing.aspx" appendQueryString="false" />
+    </rule>
+    <rule name="GS_UrlReg 结伴详情页">
+        <match url="^event/d([0-9]+)-([0-9]+)(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/CommunitySite/Activity/Home/MerchantDetail?eventid={R:2}&amp;replypage={R:4}" appendQueryString="false" />
+    </rule>
+    <rule name="GS_UrlReg 同城详情页">
+        <match url="^citywide/d([0-9]+)-([0-9]+)(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/CommunitySite/Activity/Home/MerchantDetail?eventid={R:2}&amp;replypage={R:4}" appendQueryString="false" />
+    </rule>
+    <!-- 结伴 end -->
+    <!-- 小组 st -->
+    <rule name="GS_UrlReg 小组首页">
+        <match url="^groups/?$" ignoreCase="true" />
+        <action type="Rewrite" url="/CommunitySite/forums/default.aspx" appendQueryString="false" />
+    </rule>
+    <rule name="GS_UrlReg 小组显示页">
+        <match url="^group/([0-9]+)(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/CommunitySite/forums/forums.aspx?forumid={R:1}&amp;stype=pn{R:3}/" appendQueryString="false" />
+    </rule>
+    <rule name="GS_UrlReg 帖子详情页">
+        <match url="^group/topic/([a-z,A-Z,0-9,\-]{0,20})/f([0-9]+)-q([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/CommunitySite/forums/showforums.aspx?forumid={R:2}&amp;questionid={R:3}&amp;stype={R:1}" appendQueryString="false" />
+    </rule>
+    <rule name="GS_UrlReg 帖子详情页2">
+        <match url="^group/topic/f([0-9]+)-([0-9]+)(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/CommunitySite/forums/showforums.aspx?forumid={R:1}&amp;questionid={R:2}&amp;stype=p{R:4}-" appendQueryString="false" />
+    </rule>
+    <rule name="GS_UrlReg 发表话题页">
+        <match url="^add-topic/?(/f([0-9]+))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/CommunitySite/forums/publishtopic.aspx?forumid={R:2}" appendQueryString="false" />
+    </rule>
+    <!-- 小组 end -->
+    <!-- 目的地 st -->
+    <rule name="GS_UrlReg 目的地首页">
+        <match url="^place/?$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/ttdsecond/place/index" appendQueryString="false" />
+    </rule>
+    <rule name="目的地_大洲主页">
+        <match url="^(districts|place)/([a-z,A-Z]{0,100})(110000|120001|120002|120006|120004|120005|120003|120481).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/ttdsecond/Continent/Home?DistrictId={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="目的地_大洲目的地列表">
+        <match url="^sitelist/([a-z,A-Z]{0,100})(110000|120001|120002|120006|120004|120005|120003|120481).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/ttdsecond/Continent/List?DistrictId={R:2}" appendQueryString="false" />
+    </rule>
+    <rule name="目的地_大洲游记列表">
+        <match url="^travels/([a-z,A-Z]{0,100})?(110000|120001|120002|120006|120004|120005|120003|120481)/?(t([0-9]+))?(-p([0-9]+))?(-d([0-9]+))?(-m([0-9]+))?(-c([0-9]+))?(-g([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/ttdsecond/Continent/TravelList?districtid={R:2}&amp;type={R:4}&amp;pagenow={R:6}&amp;TravelDays={R:8}&amp;Month={R:10}&amp;CompanionType={R:12}&amp;tagid={R:14}" appendQueryString="false" />
+    </rule>
+    <rule name="目的地_地区页">
+        <match url="^area/([a-z,A-z]{0,100})?([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/Destinationsite/TTDSecond/Region/Index?regionId={R:2}" appendQueryString="false" />
+    </rule>
+    <rule name="目的地_地区目的地">
+        <match url="^arealist/([a-z,A-z]{0,100})?([0-9]+)(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/Destinationsite/TTDSecond/Region/Place?regionId={R:2}&amp;page={R:4}" appendQueryString="false" />
+    </rule>
+    <rule name="目的地_地区游记">
+        <match url="^areatravels/([a-z,A-z]{0,100})?([0-9]+)/?(t([0-9]+))?(-p([0-9]+))?(-d([0-9]+))?(-m([0-9]+))?(-c([0-9]+))?(-g([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/Destinationsite/TTDSecond/Region/Travel?regionId={R:2}&amp;type={R:4}&amp;pagenow={R:6}&amp;TravelDays={R:8}&amp;Month={R:10}&amp;CompanionType={R:12}&amp;tagid={R:14}" appendQueryString="false" />
+    </rule>
+    <rule name="目的地_地区行程">
+        <match url="^areajourneys/([a-z,A-z]{0,100})?([0-9]+)/?([a-z,A-Z,0-9]{0,100}).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/schedulesite/region/list?regionId={R:2}&amp;filters={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="目的地_地图页">
+        <match url="^map/?([a-z,A-Z]{0,100})/([a-z,A-Z]{0,100})?([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/Destinationsite/TTDSecond/MapView/CityMap?type={R:1}&amp;districtId={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="目的地_微锦囊详情页">
+        <match url="^wjnlist/([a-z,A-z]{0,100})?([0-9]+)/([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/Destinationsite/TTDSecond/Sleeve/Index?DistrictId={R:2}&amp;ArticleId={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_城市_首页">
+        <match url="^(place)/([a-z,A-z]{0,100})?([0-9]+).html$" ignoreCase="false" />
+        <action type="Rewrite" url="/destinationsite/home/index?districtid={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="GS_UrlReg 目的地列表_主题">
+        <match url="^attractions/([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/You/attractions/ReviewHome.aspx?sid={R:1}" appendQueryString="false" />
+    </rule>
+    <rule name="GS_UrlReg 目的地列表_月度">
+        <match url="^months/([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/ttdSecond/place/MonthRecommend?month={R:1}" appendQueryString="false" />
+    </rule>
+    <rule name="GS_UrlReg 目的地列表_所有国家列表">
+        <match url="^place/(countrylist).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/Destinationsite/TTDSecond/place/AllCountryList" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_城市_首页2">
+        <match url="^(place)/([a-z,A-z]{0,100})?([0-9]+)(-p([0-9]+))?.html$" ignoreCase="false" />
+        <action type="Rewrite" url="/destinationsite/home/index?districtid={R:3}" appendQueryString="false" />
+    </rule>
+    <!-- 目的地页面左侧栏目分类 st -->
+    <rule name="TTD_目的地_城市_指南(概况)">
+        <match url="^summary/([a-z,A-Z]{0,100})?([0-9]+)(/([a-zA-Z]{1,100}))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/Guide/Index?districtid={R:2}&amp;topicid={R:4}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_城市_景点_概述">
+        <match url="^(sight)/([a-z,A-Z]{0,100})?([0-9]+)(/s([0-9]+))?(-p([0-9]+))?(-l([0-9]+))?(-i([0-1]))?(-r([0-9]+))?(-o([0-9]+))?.html(\?(.*))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/sight/index?districtid={R:3}&amp;pagenow={R:7}&amp;labelid={R:9}&amp;isPrice={R:11}&amp;regionid={R:13}&amp;ordertype={R:15}" appendQueryString="true" />
+    </rule>
+    <rule name="TTD_目的地_城市_景点_列表">
+        <match url="^(sightlist)/([a-z,A-Z]{0,100})?([0-9]+)(/s([0-9]+))?(-r([0-9]+))?(-i([0-1]))?(-p([0-9]+))?.html(\?(.*))?$" ignoreCase="true" />
+        <action type="Rewrite" url="destinationsite/sight/poilist?districtid={R:3}&amp;labelid={R:5}&amp;regionid={R:7}&amp;isPrice={R:9}&amp;pagenow={R:11}" appendQueryString="true" />
+    </rule>
+    <rule name="TTD_景点列表页2">
+        <match url="^(sight|sightlist)/([a-z,A-Z]{0,100})?([0-9]+)(/s([0-9]+))?(-([a-z]))?(-([a-z]))?(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/sight/poilist?districtid={R:3}&amp;regionid=0{R:5}-{R:7}{R:9}p{R:11}" appendQueryString="true" />
+    </rule>
+    <rule name="TTD_目的地_景点详情页" >
+        <match url="^(attraction)_review-d([0-9]+)-([a-z,A-z])([0-9]{0,15})([a-z,A-Z,0-9,\-]{0,20})-([a-z,A-z,0-9,_,\:]{0,100}).html$" ignoreCase="false" />
+        <action type="Rewrite" url="/destinationsite/sight/poidetail?districtid={R:2}&amp;Id={R:4}" appendQueryString="false"  />
+    </rule>
+    <rule name="TTD_景点详情页_1">
+        <match url="^(sight)/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/sight/poidetail?districtid={R:3}&amp;Id={R:4}" appendQueryString="true" />
+    </rule>
+    <rule name="TTD_目的地_城市_首页_Rewrite4" stopProcessing="true">
+        <match url="^spot/([0-9]+)(-c([0-9]+))?.html([#,a-z,A-Z])?$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/sight/poidetail?districtid=0&amp;Id={R:1}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地景点详情页_分类筛选,排序等_201306">
+        <match url="^(sight)/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)(-s([0-9]+))?(-([a-z]))?(-([a-z]))?(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/sight/PoiDetail?districtid={R:3}&amp;Id={R:4}&amp;stype={R:6}-{R:8}{R:10}p{R:12}" appendQueryString="true" />
+    </rule>
+    <rule name="TTD_景点详情页_分类筛选,排序等">
+        <match url="^(sight)/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)(/s([0-9]+))?(-c([0-9]+))?(-([a-z]))?(-([a-z]))?(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/sight/PoiDetail?districtid={R:3}&amp;id={R:4}&amp;star={R:6}&amp;tourist={R:8}&amp;order={R:12}&amp;pagenow={R:14}" appendQueryString="true" />
+    </rule>
+    <rule name="TTD_景点详情页_带点评ID参数">
+        <match url="^(sight)/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)(-c([0-9]+))?.html([#,a-z,A-Z])?$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/sight/PoiDetail?districtid={R:3}&amp;Id={R:4}&amp;commentId={R:6}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_景点_印象">
+        <match url="^sight/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)-badge.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/PoiDetail/SightWithImpression?districtId={R:2}&amp;sightId={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_景点_导览">
+        <match url="^sight/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)-guide.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/PoiDetail/SightWithGuide?districtId={R:2}&amp;sightId={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_景点_交通">
+        <match url="^sight/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)-traffic.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/PoiDetail/SightWithTraffic?districtId={R:2}&amp;sightId={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_景点_游记">
+        <match url="^sight/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)-travels(-s([0-9]+))?(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/PoiDetail/SightWithTravels?districtId={R:2}&amp;sightId={R:3}&amp;sort={R:5}&amp;page={R:7}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_景点_点评列表页">
+        <match url="^(sight)/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)-dianping(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/PoiCommentPage/POISightCommentListView?districtId={R:3}&amp;sightId={R:4}&amp;pagenow={R:6}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_景点_点评分类页">
+        <match url="^(sight)/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)-dianpingCategory([0-9]+)(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/PoiCommentPage/POISightCommentListView?districtId={R:3}&amp;sightId={R:4}&amp;tourist={R:5}&amp;pagenow={R:7}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_景点_点评详情页">
+        <match url="^(sight)/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)-dianping([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/PoiCommentPage/POISightCommentDetailView?districtId={R:3}&amp;sightId={R:4}&amp;commentId={R:5}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_机场_简介">
+        <match url="^traffic/([a-z,A-Z]{0,100})?([0-9]+)/j([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/Traffic/AirportDetail?districtid={R:2}&amp;id={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_机场_交通">
+        <match url="^traffic/([a-z,A-Z]{0,100})?([0-9]+)/j([0-9]+)-traffic.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/Traffic/AirportTrafficDetail?districtid={R:2}&amp;id={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_机场_联系电话">
+        <match url="^traffic/([a-z,A-Z]{0,100})?([0-9]+)/j([0-9]+)-phone.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/Traffic/AirportTelephone?districtid={R:2}&amp;id={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_机场_航空公司">
+        <match url="^traffic/([a-z,A-Z]{0,100})?([0-9]+)/j([0-9]+)-company.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/Traffic/AirportAirline?districtid={R:2}&amp;id={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_机场_附近酒店">
+        <match url="^traffic/([a-z,A-Z]{0,100})?([0-9]+)/j([0-9]+)-hotels.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/Traffic/AirportHotels?districtid={R:2}&amp;id={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_机场_相关交通枢纽">
+        <match url="^traffic/([a-z,A-Z]{0,100})?([0-9]+)/j([0-9]+)-hub.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/Traffic/AirPortTrafficHub?districtid={R:2}&amp;id={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_交通_地图">
+        <match url="^traffic/([a-z,A-Z]{0,100})?([0-9]+)/(j|h|q|g)([0-9]+)-map.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/MapView/TrafficMap?districtid={R:2}&amp;id={R:4}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_交通_街景">
+        <match url="^traffic/([a-z,A-Z]{0,100})?([0-9]+)/(j|h|q|g)([0-9]+)-vista.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/MapView/TrafficStreet?districtid={R:2}&amp;id={R:4}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_机场_点评列表页">
+        <match url="^traffic/([a-z,A-Z]{0,100})?([0-9]+)/j([0-9]+)-dianping(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/POICommentPage/POIAirportCommentListView?districtId={R:2}&amp;id={R:3}&amp;pagenow={R:5}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_机场_点评详情页">
+        <match url="^traffic/([a-z,A-Z]{0,100})?([0-9]+)/j([0-9]+)-dianping([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/POICommentPage/POIAirportCommentDetailView?districtId={R:2}&amp;id={R:3}&amp;commentId={R:4}" appendQueryString="false" />
+    </rule>
+
+    <rule name="TTD_目的地_火车_简介">
+        <match url="^traffic/([a-z,A-Z]{0,100})?([0-9]+)/h([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/Traffic/TrainDetail?districtid={R:2}&amp;id={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_火车_附近酒店">
+        <match url="^traffic/([a-z,A-Z]{0,100})?([0-9]+)/h([0-9]+)-hotels.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/Traffic/TrainHotels?districtid={R:2}&amp;id={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_火车_相关交通枢纽">
+        <match url="^traffic/([a-z,A-Z]{0,100})?([0-9]+)/h([0-9]+)-hub.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/Traffic/TrainTrafficHub?districtid={R:2}&amp;id={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_火车_点评列表页">
+        <match url="^traffic/([a-z,A-Z]{0,100})?([0-9]+)/h([0-9]+)-dianping(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/POICommentPage/POITrainCommentListView?districtId={R:2}&amp;id={R:3}&amp;pagenow={R:5}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_火车_点评详情页">
+        <match url="^traffic/([a-z,A-Z]{0,100})?([0-9]+)/h([0-9]+)-dianping([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/POICommentPage/POITrainCommentDetailView?districtId={R:2}&amp;id={R:3}&amp;commentId={R:4}" appendQueryString="false" />
+    </rule>
+
+    <rule name="TTD_目的地_汽车_简介">
+        <match url="^traffic/([a-z,A-Z]{0,100})?([0-9]+)/q([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/Traffic/CityBusStationDetail?districtid={R:2}&amp;id={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_汽车_附近酒店">
+        <match url="^traffic/([a-z,A-Z]{0,100})?([0-9]+)/q([0-9]+)-hotels.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/Traffic/CityBusStationHotels?districtid={R:2}&amp;id={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_汽车_相关交通枢纽">
+        <match url="^traffic/([a-z,A-Z]{0,100})?([0-9]+)/q([0-9]+)-hub.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/Traffic/CityBusStationTrafficHub?districtid={R:2}&amp;id={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_汽车_点评列表页">
+        <match url="^traffic/([a-z,A-Z]{0,100})?([0-9]+)/q([0-9]+)-dianping(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/POICommentPage/POICityBusStationCommentListView?districtId={R:2}&amp;id={R:3}&amp;pagenow={R:5}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_汽车_点评详情页">
+        <match url="^traffic/([a-z,A-Z]{0,100})?([0-9]+)/q([0-9]+)-dianping([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/POICommentPage/POICityBusStationCommentDetailView?districtId={R:2}&amp;id={R:3}&amp;commentId={R:4}" appendQueryString="false" />
+    </rule>
+
+    <rule name="TTD_目的地_港口_简介">
+        <match url="^traffic/([a-z,A-Z]{0,100})?([0-9]+)/g([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/Traffic/HarbourDetail?districtid={R:2}&amp;id={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_港口_附近酒店">
+        <match url="^traffic/([a-z,A-Z]{0,100})?([0-9]+)/g([0-9]+)-hotels.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/Traffic/HarbourHotels?districtid={R:2}&amp;id={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_港口_相关交通枢纽">
+        <match url="^traffic/([a-z,A-Z]{0,100})?([0-9]+)/g([0-9]+)-hub.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/Traffic/HarbourTrafficHub?districtid={R:2}&amp;id={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_港口_点评列表页">
+        <match url="^traffic/([a-z,A-Z]{0,100})?([0-9]+)/g([0-9]+)-dianping(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/POICommentPage/POIHarbourCommentListView?districtId={R:2}&amp;id={R:3}&amp;pagenow={R:5}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_港口_点评详情页">
+        <match url="^traffic/([a-z,A-Z]{0,100})?([0-9]+)/g([0-9]+)-dianping([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/POICommentPage/POIHarbourCommentDetailView?districtId={R:2}&amp;id={R:3}&amp;commentId={R:4}" appendQueryString="false" />
+    </rule>
+
+    <rule name="TTD_目的地_购物_点评列表页">
+        <match url="^(shopping)/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)-dianping(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/PoiCommentPage/POIShopCommentListView?districtId={R:3}&amp;shopId={R:4}&amp;pagenow={R:6}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_购物_点评分类页">
+        <match url="^(shopping)/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)-dianpingCategory([0-9]+)(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/PoiCommentPage/POIShopCommentListView?districtId={R:3}&amp;shopId={R:4}&amp;tourist={R:5}&amp;pagenow={R:7}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_购物_点评详情页">
+        <match url="^(shopping)/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)-dianping([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/PoiCommentPage/POIShopCommentDetailView?districtId={R:3}&amp;shopId={R:4}&amp;commentId={R:5}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_娱乐_点评列表页">
+        <match url="^(resort)/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)-dianping(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/PoiCommentPage/POIActivityCommentListView?districtId={R:3}&amp;ActivityId={R:4}&amp;pagenow={R:6}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_娱乐_点评分类页">
+        <match url="^(resort)/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)-dianpingCategory([0-9]+)(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/PoiCommentPage/POIActivityCommentListView?districtId={R:3}&amp;ActivityId={R:4}&amp;tourist={R:5}&amp;pagenow={R:7}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_娱乐_点评详情页">
+        <match url="^(resort)/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)-dianping([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/PoiCommentPage/POIActivityCommentDetailView?districtId={R:3}&amp;ActivityId={R:4}&amp;commentId={R:5}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_餐馆_点评列表页">
+        <match url="^(food)/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)-dianping(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/PoiCommentPage/POIFoodCommentListView?districtId={R:3}&amp;FoodId={R:4}&amp;pagenow={R:6}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_餐馆_点评分类页">
+        <match url="^(food)/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)-dianpingCategory([0-9]+)(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/PoiCommentPage/POIFoodCommentListView?districtId={R:3}&amp;FoodId={R:4}&amp;tourist={R:5}&amp;pagenow={R:7}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_餐馆_点评详情页">
+        <match url="^(food)/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)-dianping([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/PoiCommentPage/POIFoodCommentDetailView?districtId={R:3}&amp;FoodId={R:4}&amp;commentId={R:5}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_游记列表1_默认首页">
+        <match url="^(travellist|travels)/([a-z,A-Z]{0,100})?([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/Travels/index?districtid={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地游记列表3">
+        <match url="^travels/([a-z,A-Z]{0,100})?([0-9]+)/(t([0-9]+))?(-p([0-9]+))?(-d([0-9]+))?(-m([0-9]+))?(-c([0-9]+))?(-g([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/Travels/index?districtid={R:2}&amp;type={R:4}&amp;pagenow={R:6}&amp;TravelDays={R:8}&amp;Month={R:10}&amp;CompanionType={R:12}&amp;tagid={R:14}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地游记列表2_分类筛选,排序等_old">
+        <match url="^(travellist|travels)/([a-z,A-Z]{0,100})?([0-9]+)/(s([0-9]+))?(-([a-z]))?(-([a-z]))?(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/Travels/index?districtid={R:3}&amp;type={R:5}&amp;pagenow={R:11}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_城市_住宿">
+        <match url="^zhusu/([a-z,A-Z]{0,100})?([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/ttdsecond/hotel/index?districtid={R:2}" appendQueryString="true" />
+    </rule>
+    <rule name="GS_UrlReg 目的地美食列表">
+        <match url="^(delicacies|food)/([a-z,A-Z]{0,100})?([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/food/poilist?districtId={R:3}&amp;typeId=&amp;regionid=&amp;isPrice=&amp;suitId=&amp;pagenow=" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_城市_美食">
+        <match url="^(restaurant)/([a-z,A-z]{0,200})?([0-9]+).html$" ignoreCase="false" />
+        <action type="Rewrite" url="/destinationsite/food/index?districtid={R:3}" appendQueryString="false" />
+    </rule>
+    <!--<rule name="TTD_目的地_城市_美食2">
+          <match url="^(food|restaurantlist)/([a-z,A-Z,0-9]{0,200}/)?([0-9]+).html$" ignoreCase="true" />
+          <action type="Rewrite" url="/destinationsite/food/poilist?districtId={R:3}" appendQueryString="false" />
+        </rule>-->
+    <rule name="TTD_目的地餐馆列表_默认首页">
+        <match url="^(restaurantlist)/([a-z,A-Z]{0,100})?([0-9]+)(/s([0-9]+))?(-r([0-9]+))?(-i([0-1]))?(-([0-9]+))?(-p([0-9]+))?.html(\?(.*))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/food/poilist?districtId={R:3}&amp;typeId={R:5}&amp;regionid={R:7}&amp;isPrice={R:9}&amp;suitId={R:11}&amp;pagenow={R:13}" appendQueryString="true" />
+    </rule>
+    <rule name="TTD_目的地餐馆列表new_默认首页">
+        <match url="^(restaurantlist)/([a-z,A-Z]{0,100})?([0-9]+)/list(-s([0-9]+))?(-x([0-9]+))?(-j([0-9]+))?(-d([0-9]+))?(-h([0-9]+))?(-c([0-9]+))?(-t([0-9]+))?(-g([0-9]+))?(-l([0-9]+))?(-p([0-9]+))?.html(\?(.*))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/food/poilist?districtId={R:3}&amp;ZoneId={R:5}&amp;regionid={R:7}&amp;SightId={R:9}&amp;SubwayStationId={R:11}&amp;AirportTrainId={R:13}&amp;TypeId={R:15}&amp;suitid={R:17}&amp;PriceSortId={R:19}&amp;SellSortId={R:21}&amp;PageNow={R:23}" appendQueryString="true" />
+    </rule>
+    <!--<rule name="TTD_目的地餐馆列表_默认首页2(如山东目的地下的餐馆列表页,用老的方式显示)">
+          <match url="^(restaurantlist|food)/([a-z,A-Z]{0,100})?([0-9]+)-p([0-9]+).html$" ignoreCase="true" />
+          <action type="Rewrite" url="/destinationsite/food/poilist?districtId={R:3}&amp;dstype=rdp{R:4}-" appendQueryString="false" />
+        </rule>-->
+    <!--<rule name="TTD_目的地餐馆列表_分类筛选,排序等">
+          <match url="^(restaurantlist|restaurant|food)/([a-z,A-Z]{0,100})?([0-9]+)/(s([0-9]+)?)?(-lo([0-9]+)?)?(-zo([0-9]+)?)?(-l([0-9]+)?)?(-h([0-9]+)?)?(-([a-z]))?(-([a-z]))?(-p([0-9]+))?.html$" ignoreCase="true" />
+          <action type="Rewrite" url="/destinationsite/food/poilist?districtId={R:3}&amp;stype={R:15}{R:17}p{R:19}&amp;class=p:{R:11}-{R:13},c:{R:5},lo:{R:7},zo:{R:9},ca:" appendQueryString="false" />
+        </rule>-->
+    <rule name="TTD_目的地餐馆列表_分类筛选,排序等">
+        <match url="^(restaurantlist)/([a-z,A-Z]{0,100})?([0-9]+)/(s([0-9]+)?)?(-lo([0-9]+)?)?(-zo([0-9]+)?)?(-l([0-9]+)?)?(-h([0-9]+)?)?(-([a-z]))?(-([a-z]))?(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/food/poilist?districtId={R:3}&amp;stype={R:15}{R:17}p{R:19}&amp;class=p:{R:11}-{R:13},c:{R:5},lo:{R:7},zo:{R:9},ca:" appendQueryString="false" />
+    </rule>
+    <!--<rule name="TTD_目的地餐馆详情_默认首页2">
+          <match url="^(restaurant|food)/([a-z,A-Z,0-9]{0,200}/)?([0-9]+)(-c([0-9]+))?.html([#,a-z,A-Z])?$" ignoreCase="true" />
+          <action type="Rewrite" url="/destinationsite/food/poilist?districtId=c{R:3}&amp;stype=-r{R:5}" appendQueryString="false" />
+        </rule>-->
+    <!--<rule name="TTD_目的地餐馆详情_分类筛选,排序等">
+          <match url="^(restaurant)/([a-z,A-Z,0-9]{0,200}/)?([0-9]+)/(s([0-9]+))?(-([a-z]))?(-([a-z]))?(-p([0-9]+))?.html$" ignoreCase="true" />
+          <action type="Rewrite" url="/destinationsite/food/poilist?districtId=c{R:3}&amp;zoneid={R:5}" appendQueryString="false" />
+        </rule>-->
+    <rule name="TTD_目的地餐馆详情_301">
+        <match url="^(restaurant)/([a-z,A-Z,0-9]{0,200}/)?[a-z,A-Z,:]{0,100}([0-9]+).html$" ignoreCase="false" />
+        <action type="Rewrite" url="/destinationsite/food/poilist?districtId={R:3}"/>
+    </rule>
+    <rule name="TTD_目的地餐馆详情">
+        <match url="^(food)/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)(-c[0-9]+)?(/s([0-9]+))?(-c([0-9]+))?(-([a-z]))?(-([a-z]))?(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="destinationsite/food/poidetail?districtid={R:3}&amp;id={R:4}&amp;star={R:7}&amp;tourist={R:9}&amp;order={R:13}&amp;pagenow={R:15}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地餐馆套餐详情">
+        <match url="^(food)/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)-([0-9]+)-([0-9]+)-taocan.html$" ignoreCase="true" />
+        <action type="Rewrite" url="destinationsite/food/productdetail?districtid={R:3}&amp;restaurantid={R:4}&amp;productid={R:5}&amp;merchantid={R:6}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地餐馆返现详情">
+        <match url="^(food)/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)-([0-9]+)-fanxian.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/food/merchantrebatedetail?districtId={R:3}&amp;restaurantid={R:4}&amp;merchantid={R:5}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地餐馆详情_周边住宿">
+        <match url="^(food)/([a-z,A-Z]{1,100})([0-9]+)/([0-9]+)-hotels.html$" ignoreCase="false" />
+        <action type="Rewrite" url="/destinationsite/food/restaurantwithhotel?districtid={R:3}&amp;id={R:4}" appendQueryString="false"/>
+    </rule>
+    <rule name="TTD_目的地餐馆详情_周边景点">
+        <match url="^(food)/([a-z,A-Z]{1,100})([0-9]+)/([0-9]+)-sight.html$" ignoreCase="false" />
+        <action type="Rewrite" url="/destinationsite/food/restaurantwithsight?districtid={R:3}&amp;id={R:4}" appendQueryString="false"/>
+    </rule>
+    <rule name="TTD_目的地餐馆详情_周边餐馆">
+        <match url="^(food)/([a-z,A-Z]{1,100})([0-9]+)/([0-9]+)-food.html$" ignoreCase="false" />
+        <action type="Rewrite" url="/destinationsite/food/restaurantwithrestaurant?districtid={R:3}&amp;id={R:4}" appendQueryString="false"/>
+    </rule>
+    <rule name="TTD_目的地餐馆详情_查看大地图_地图">
+        <match url="^(food)/([a-z,A-Z]{1,100})([0-9]+)/([0-9]+)-map.html$" ignoreCase="false" />
+        <action type="Rewrite" url="/destinationsite/food/map?districtid={R:3}&amp;id={R:4}" appendQueryString="false"/>
+    </rule>
+    <rule name="TTD_目的地餐馆详情_查看大地图_街景">
+        <match url="^(food)/([a-z,A-Z]{1,100})([0-9]+)/([0-9]+)-vista.html$" ignoreCase="false" />
+        <action type="Rewrite" url="/destinationsite/food/mapstreet?districtid={R:3}&amp;id={R:4}" appendQueryString="false"/>
+    </rule>
+    <rule name="TTD_目的地_城市_美食列表页">
+        <match url="^(fooditem)/([a-z,A-Z]{0,100})?([0-9]+)(/s([0-9]+))?(-r([0-9]+))?(-i([0-1]))?(-([0-9]+))?(-p([0-9]+))?.html(\?(.*))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/food/poiitemlist?districtId={R:3}&amp;typeId={R:5}&amp;regionid={R:7}&amp;isPrice={R:9}&amp;suitId={R:11}&amp;pagenow={R:13}" appendQueryString="true" />
+    </rule>
+    <rule name="TTD_目的地_城市_购物概括">
+        <match url="^(shopping)/([a-z,A-Z]{0,100})?([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/shopping/index?districtid={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_城市_商品列表页">
+        <match url="^(goods)/([a-z,A-Z]{0,100})?([0-9]+)(/s([0-9]+))?(-r([0-9]+))?(-i([0-1]))?(-p([0-9]+))?.html(\?(.*))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/shopping/poiitemlist?districtid={R:3}&amp;labelid={R:5}&amp;regionid={R:7}&amp;isPrice={R:9}&amp;pagenow={R:11}" appendQueryString="true" />
+    </rule>
+    <rule name="TTD_目的地_城市_商品介绍">
+        <match url="^(goods)/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/shopping/GoodDetail?districtid={R:3}&amp;goodsid={R:4}&amp;pageNo={R:6}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地购物列表_分类筛选,排序等">
+        <match url="^(shoppinglist)/([a-z,A-Z]{0,100})?([0-9]+)(/s([0-9]+))?(-r([0-9]+))?(-i([0-1]))?(-p([0-9]+))?.html(\?(.*))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/shopping/poilist?districtid={R:3}&amp;labelid={R:5}&amp;regionid={R:7}&amp;isPrice={R:9}&amp;pagenow={R:11}" appendQueryString="true" />
+    </rule>
+    <rule name="TTD_购物_附近酒店">
+        <match url="^(shopping)/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)-hotels.html([#,a-z,A-Z])?$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/shopping/PoiDetailWithHotels?districtid={R:3}&amp;id={R:4}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_购物_附近景点">
+        <match url="^(shopping)/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)-sight.html([#,a-z,A-Z])?$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/shopping/PoiDetailWithSight?districtid={R:3}&amp;id={R:4}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_购物_附近餐馆">
+        <match url="^(shopping)/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)-food.html([#,a-z,A-Z])?$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/shopping/PoiDetailWithRestaurant?districtid={R:3}&amp;id={R:4}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_购物_附近团购">
+        <match url="^(shopping)/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)-tuan.html([#,a-z,A-Z])?$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/shopping/PoiDetailWithTuan?districtid={R:3}&amp;id={R:4}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_购物_购物地图">
+        <match url="^(shopping)/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)-map.html([#,a-z,A-Z])?$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/shopping/Map?districtid={R:3}&amp;ShopId={R:4}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_购物_地图街景">
+        <match url="^(shopping)/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)-vista.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/shopping/MapStreet?districtid={R:3}&amp;ShopId={R:4}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_购物详情页_1">
+        <match url="^(shopping)/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)(/s([0-9]+))?(-c([0-9]+))?(-([a-z]+))?(-([a-z]+))?(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/shopping/PoiDetailWithIntro?districtid={R:3}&amp;id={R:4}&amp;star={R:6}&amp;tourist={R:8}&amp;order={R:12}&amp;pagenow={R:14}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地周边酒店">
+        <match url="^sight/([a-z,A-Z]{1,100})?([0-9]+)/([0-9]+)-hotels.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/poidetail/sightwithhotel?districtId={R:2}&amp;sightid={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地周边景点">
+        <match url="^sight/([a-z,A-Z]{1,100})?([0-9]+)/([0-9]+)-sight.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/poidetail/sightwithsight?districtId={R:2}&amp;sightid={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地周边地图">
+        <match url="^sight/([a-z,A-Z]{1,100})?([0-9]+)/([0-9]+)-map.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/MapView/SightMap?sightid={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地周边团购">
+        <match url="^sight/([a-z,A-Z]{1,100})?([0-9]+)/([0-9]+)-tuan.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/PoiDetail/SightWithGroup?districtId={R:2}&amp;sightid={R:3}" appendQueryString="true" />
+    </rule>
+    <rule name="TTD_景点_街景_Rewrite1">
+        <match url="^sight/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)-vista.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/MapView/SightStreetView?sightId={R:3}" appendQueryString="false" />
+    </rule>
+    <!-- remove by scli2013-11-05
+        <rule name="GS_UrlReg 目的地购物详情_默认首页">
+          <match url="^shopping/([a-z,A-Z,0-9]{0,200}/)?([0-9]+).html$" ignoreCase="true" />
+          <action type="Rewrite" url="/attractions/ReviewHome.aspx?sid={R:2}" appendQueryString="false" />
+        </rule>-->
+    <rule name="GS_UrlReg 目的地购物详情">
+        <match url="^shopping/([a-z,A-Z,0-9]{0,200}/)?([0-9]+)(-c([0-9]+))?.html([#,a-z,A-Z])?$" ignoreCase="true" />
+        <action type="Rewrite" url="/You/attractions/ReviewHome.aspx?sid={R:2}&amp;stype=-r{R:4}" appendQueryString="false" />
+    </rule>
+    <!--<rule name="GS_UrlReg 目的地购物详情_分类筛选,排序等">
+          <match url="^shopping/([a-z,A-Z,0-9]{0,200}/)?([0-9]+)/(s([0-9]+))?(-([a-z]))?(-([a-z]))?(-p([0-9]+))?.html$" ignoreCase="true" />
+          <action type="Rewrite" url="/attractions/ReviewHome.aspx?sid={R:2}&amp;dstype=-{R:6}{R:8}p{R:10}" appendQueryString="false" />
+        </rule>-->
+    <rule name="GS_UrlReg 目的地购物详情_分类筛选,排序等">
+        <match url="^shopping/([a-z,A-Z]{0,100})([0-9]+)/(s([0-9]+))?(-([a-z]))?(-([a-z]))?(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/You/attractions/ReviewHome.aspx?sid={R:2}&amp;dstype=-{R:6}{R:8}p{R:10}" appendQueryString="false" />
+    </rule>
+    <rule name="GS_UrlReg 目的地购物_介绍页面">
+        <match url="^shoppingguide/([a-z,A-Z]{0,100})?([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/shopping/index?districtid={R:2}" appendQueryString="false" />
+    </rule>
+    <rule name="目的地交通详情页">
+        <match url="^traffic/([a-z,A-Z]{0,100})?([0-9]+)/([a-z,A-Z]{0,100})?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/traffic/index?topic={R:3}&amp;districtid={R:2}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_城市_交通">
+        <match url="^traffic/([a-z,A-Z]{0,100})?([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/traffic/index?districtid={R:2}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_城市_交通机场信息">
+        <match url="^airport/([a-z,A-Z]{0,100})([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/traffic/AirPortInfo?districtid={R:2}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_城市_交通出租信息">
+        <match url="^car/([a-z,A-Z]{0,100})([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/traffic/car?districtid={R:2}" appendQueryString="false" />
+    </rule>
+    <!--<rule name="TTD_目的地_城市_地图">
+          <match url="^map/([a-z,A-Z]{0,100})?([0-9]+).html$" ignoreCase="true" />
+          <action type="Rewrite" url="/destinationsite/map/index?districtid={R:2}" appendQueryString="false" />
+        </rule>-->
+    <rule name="GS_UrlReg 目的地地图列表2">
+        <match url="^map/(d([0-9]+))(-([a-z,A-z,0-9,\:\/\-]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/You/localmaps/default.aspx?District={R:2}&amp;dstype={R:4}-a" appendQueryString="false" />
+    </rule>
+    <rule name="目的地地图列表2_201306">
+        <match url="^map/([a-z,A-Z]{0,100})?([0-9]+)(-([a-z,A-z,0-9,\:\/\-]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/You/localmaps/default.aspx?District={R:2}&amp;dstype={R:4}-a" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_城市_行程_列表">
+        <match url="^journeys/([a-z,A-Z]{0,100})?([0-9]+)?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/scheduleSite/home/list?districtid={R:2}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_城市_行程_详情页">
+        <match url="^journeys/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/scheduleSite/home/detail?districtId={R:2}&amp;scheduleId={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地行程列表_分类筛选等">
+        <match url="^journeys/([a-z,A-Z]{0,100})?([0-9]+)/([a-z,A-Z,0-9]{0,100}).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/scheduleSite/home/list?districtId={R:2}&amp;filters={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_城市_行程_交通地图">
+        <match url="^journeys/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)-traffic(-([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/scheduleSite/home/routemap?districtId={R:2}&amp;scheduleInfoId={R:3}&amp;scheduleTrafficId={R:5}" appendQueryString="true" />
+    </rule>
+    <rule name="TTD_目的地_城市_行程_行程地图">
+        <match url="^journeys/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)-map.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/scheduleSite/home/schedulemap?districtId={R:2}&amp;scheduleId={R:3}" appendQueryString="true" />
+    </rule>
+
+    <rule name="TTD_目的地行程列表_分类筛选,排序等">
+        <match url="^journeys/([a-z,A-Z]{0,100})?([0-9]+)/(s([0-9]+))?(-([a-z]))?(-([a-z]))?(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/scheduleSite/home/list?districtid={R:2}" appendQueryString="false" />
+    </rule>
+
+
+    <rule name="TTD_目的地签证列表">
+        <match url="^visa/([a-z,A-Z]{0,100})?([0-9]+)(/([a-zA-Z]{1,100}))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/DestinationSite/TTDSecond/Visa?districtid={R:2}&amp;tab={R:4}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地签证筛选页">
+        <match url="^visa/([a-z,A-Z]{0,100})?([0-9]+)/list(-t([0-9]+))?(-m([0-9]+))?(-d([0-9]+))?(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/DestinationSite/TTDSecond/Visa?districtid={R:2}&amp;type={R:4}&amp;interview={R:6}&amp;des={R:8}&amp;pIndex={R:10}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_城市_娱乐">
+        <match url="^resort/([a-z,A-Z]{0,100})?([0-9]+)(/s([0-9]+))?(-p([0-9]+))?(-l([0-9]+))?(-i([0-1]))?(-r([0-9]+))?(-o([0-9]+))?.html(\?(.*))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/activity/index?districtid={R:2}&amp;pagenow={R:6}&amp;labelid={R:8}&amp;isPrice={R:10}&amp;regionid={R:12}&amp;ordertype={R:14}" appendQueryString="true" />
+    </rule>
+    <rule name="TTD_目的地_城市_娱乐2">
+        <match url="^(resortlist)/([a-z,A-Z]{0,100})?([0-9]+)(/s([0-9]+))?(-r([0-9]+))?(-i([0-1]))?(-p([0-9]+))?.html(\?(.*))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/activity/Poilist?districtid={R:3}&amp;labelid={R:5}&amp;regionid={R:7}&amp;isPrice={R:9}&amp;pageindex={R:11}" appendQueryString="true" />
+    </rule>
+    <rule name="TTD_目的地_城市_娱乐详情">
+        <match url="^(resort)/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="destinationsite/activity/poidetail?districtid={R:3}&amp;Id={R:4}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地娱乐详情页_分类筛选,排序等_201306">
+        <match url="^(resort)/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)(-s([0-9]+))?(-([a-z]))?(-([a-z]))?(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/Activity/PoiDetail?districtid={R:3}&amp;Id={R:4}&amp;stype={R:6}-{R:8}{R:10}p{R:12}" appendQueryString="true" />
+    </rule>
+    <rule name="TTD_娱乐详情页_分类筛选,排序等">
+        <match url="^(resort)/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)(/s([0-9]+))?(-c([0-9]+))?(-([a-z]))?(-([a-z]))?(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/Activity/PoiDetail?districtid={R:3}&amp;id={R:4}&amp;star={R:6}&amp;tourist={R:8}&amp;order={R:12}&amp;pagenow={R:14}" appendQueryString="true" />
+    </rule>
+    <rule name="TTD_目的地_城市_娱乐详情_带点评ID参数">
+        <match url="^resort/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)(-c([0-9]+))?.html([#,a-z,A-Z])?$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/activity/PoiDetail?districtid={R:2}&amp;Id={R:3}&amp;commentId={R:5}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_国家省份地图页">
+        <match url="^(countrymap)/([a-z,A-Z]{0,200})?([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/country/countryMapView?districtid={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_国家娱乐列表页">
+        <match url="^(countryactivitylist)/([a-z,A-Z]{0,100})?([0-9]+)(/p([0-9]+))?(-s([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/country/activitylist?districtid={R:3}&amp;pagenow={R:5}&amp;labelid={R:7}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_国家景点列表页">
+        <match url="^(countrysightlist)/([a-z,A-Z]{0,100})?([0-9]+)(/p([0-9]+))?(-s([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/country/sightlist?districtid={R:3}&amp;pagenow={R:5}&amp;labelid={R:7}" appendQueryString="false" />
+    </rule>
+
+    <rule name="TTD_目的地_国家餐馆列表页">
+        <match url="^(countryrestaurantlist)/([a-z,A-Z]{0,100})?([0-9]+)(/p([0-9]+))?(-s([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/country/restaurantlist?districtid={R:3}&amp;pagenow={R:5}&amp;labelid={R:7}" appendQueryString="false" />
+    </rule>
+
+    <rule name="TTD_目的地_国家美食点列表页">
+        <match url="^(countryfoodlist)/([a-z,A-Z]{0,100})?([0-9]+)(/p([0-9]+))?(-s([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/country/foodlist?districtid={R:3}&amp;pagenow={R:5}&amp;labelid={R:7}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_美食详情页">
+        <match url="^(fooditem)/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/food/fooddetail?districtid={R:3}&amp;foodId={R:4}&amp;pageNo={R:6}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_国家购物点列表页">
+        <match url="^(districtshop)/([a-z,A-Z]{0,100})?([0-9]+)(/p([0-9]+))?(-s([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/country/DistrictShop?districtid={R:3}&amp;pagenow={R:5}&amp;labelid={R:7}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_国家商品列表页">
+        <match url="^(csl)/([a-z,A-Z]{0,100})?([0-9]+)(/p([0-9]+))?(-s([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/country/ShoppingList?districtid={R:3}&amp;pagenow={R:5}&amp;labelid={R:7}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_目的地_周边游页">
+        <match url="^(around)/([a-z,A-Z]{0,100})?([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/around/index?districtid={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_点评-搜索poi">
+        <match url="^dianping/?$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/comment/SearchComment" appendQueryString="false" />
+    </rule>
+
+    <rule name="TTD_点评-发表点评">
+        <match url="^dianping/edit/([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/comment/PublishComment?id={R:1}" appendQueryString="false" />
+    </rule>
+    <rule name="TTD_点评-发表结果">
+        <match url="^dianping/result/([a-z,A-Z,0-9]+)?$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/comment/CommentResult" appendQueryString="true" />
+    </rule>
+    <!--美食筛选SiteMap-begin-->
+    <rule name="SiteMap_美食筛选_索引主页">
+        <match url="^restaurantlist/[a-z,A-Z]{0,100}([0-9]+)/sitemap.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/SiteMap/FoodIndex?DistrictId={R:1}" appendQueryString="false" />
+    </rule>
+    <rule name="SiteMap_美食筛选_团购索引列表">
+        <match url="^restaurantlist/[a-z,A-Z]{0,100}([0-9]+)/sitemap-tuan.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/SiteMap/FoodPreferentialIndex?DistrictId={R:1}" appendQueryString="false" />
+    </rule>
+    <rule name="SiteMap_美食筛选_团购索引深入页">
+        <match url="^restaurantlist/[a-z,A-Z]{0,100}([0-9]+)/sitemap-tuan-t([0-9]+)-p([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/SiteMap/FoodPreferentialMore?DistrictId={R:1}&amp;type={R:2}&amp;pageIndex={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="SiteMap_美食筛选_菜系索引列表">
+        <match url="^restaurantlist/[a-z,A-Z]{0,100}([0-9]+)/sitemap-caixi.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/SiteMap/FoodCuisineIndex?DistrictId={R:1}" appendQueryString="false" />
+    </rule>
+    <rule name="SiteMap_美食筛选_菜系索引深入页">
+        <match url="^restaurantlist/[a-z,A-Z]{0,100}([0-9]+)/sitemap-caixi-t([0-9]+)-p([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/SiteMap/FoodCuisineMore?DistrictId={R:1}&amp;type={R:2}&amp;pageIndex={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="SiteMap_美食筛选_餐馆索引列表">
+        <match url="^restaurantlist/[a-z,A-Z]{0,100}([0-9]+)/sitemap-food(-([a-z]))?-p([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/SiteMap/RestaurantIndex?DistrictId={R:1}&amp;firstLetter={R:3}&amp;pageIndex={R:4}" appendQueryString="false" />
+    </rule>
+    <!--美食筛选SiteMap-end-->
+    <!-- 目的地页面左侧栏目分类 end -->
+    <!--
+        <rule name="GS_UrlReg 目的地景点点评列表页(待添加页面)">
+          <match url="^spot-comments/([0-9]+)(-p([0-9]+))?.html$" ignoreCase="true" />
+          <action type="Rewrite" url="###" appendQueryString="false" />
+        </rule>
+        <rule name="GS_UrlReg 目的地景点点评详情页(待添加页面)">
+          <match url="^spot-comment/([0-9]+).html$" ignoreCase="true" />
+          <action type="Rewrite" url="###" appendQueryString="false" />
+        </rule>
+        -->
+    <!-- 目的地 end -->
+    <!-- 照片等 st -->
+    <rule name="GS_UrlReg 照片_相册">
+        <match url="^photos/album/(w([0-9]+))?(r([0-9]+))?(-([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/You/photos/default.aspx?type=1&amp;resource={R:4}&amp;writing={R:2}&amp;phsid={R:6}" appendQueryString="false" />
+    </rule>
+    <rule name="GS_UrlReg 照片_景点_list">
+        <match url="^photos/(spot|sight)/([a-z,A-Z]{1,200}([0-9]+)/)?(w([0-9]+))?(r([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/Destinationsite/TTDSecond/photo/index?districtid={R:3}&amp;type=2&amp;resource={R:7}&amp;phsid=0" appendQueryString="false" />
+    </rule>
+    <rule name="GS_UrlReg 照片_餐馆_list">
+        <match url="^photos/(delicacy|food)/([a-z,A-Z]{1,200}([0-9]+)/)?(w([0-9]+))?(r([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/Destinationsite/TTDSecond/photo/index?districtid={R:3}&amp;type=3&amp;resource={R:7}&amp;phsid=0" appendQueryString="false" />
+    </rule>
+    <rule name="GS_UrlReg 照片_购物_list">
+        <match url="^photos/(shop)/([a-z,A-Z]{1,200}([0-9]+)/)?(w([0-9]+))?(r([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/Destinationsite/TTDSecond/photo/index?districtid={R:3}&amp;type=5&amp;resource={R:7}&amp;phsid=0" appendQueryString="false" />
+    </rule>
+    <rule name="GS_UrlReg 照片_娱乐_list">
+        <match url="^photos/(resort)/([a-z,A-Z]{1,200}([0-9]+)/)?(w([0-9]+))?(r([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/Destinationsite/TTDSecond/photo/index?districtid={R:3}&amp;type=6&amp;resource={R:7}&amp;phsid=0" appendQueryString="false" />
+    </rule>
+    <rule name="GS_UrlReg 照片_目的地_list">
+        <match url="^photos/district/(w([0-9]+))?(r([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/Destinationsite/TTDSecond/photo/index?districtid={R:4}&amp;type=4&amp;resource={R:4}&amp;phsid=0" appendQueryString="false" />
+    </rule>
+    <rule name="照片_目的地_201306_list">
+        <match url="^photos/([a-z,A-Z]{0,100})([0-9]+)/(w([0-9]+))?(r([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/Destinationsite/TTDSecond/photo/index?districtid={R:6}&amp;type=4&amp;resource={R:6}&amp;phsid=0" appendQueryString="false" />
+    </rule>
+    <rule name="GS_UrlReg 照片_景点_detail">
+        <match url="^photos/(spot|sight)/([a-z,A-Z]{1,200}([0-9]+)/)?(w([0-9]+))?(r([0-9]+))?(-([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/Destinationsite/TTDSecond/photo/PhotoDetailView?districtid={R:3}&amp;type=2&amp;resource={R:7}&amp;writing={R:5}&amp;phsid={R:9}" appendQueryString="false" />
+    </rule>
+    <rule name="GS_UrlReg 照片_餐馆_detail">
+        <match url="^photos/(delicacy|food)/([a-z,A-Z]{1,200}([0-9]+)/)?(w([0-9]+))?(r([0-9]+))?(-([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/Destinationsite/TTDSecond/photo/PhotoDetailView?districtid={R:3}&amp;type=3&amp;resource={R:7}&amp;writing={R:5}&amp;phsid={R:9}" appendQueryString="false" />
+    </rule>
+    <rule name="GS_UrlReg 照片_娱乐_detail">
+        <match url="^photos/(resort)/([a-z,A-Z]{1,200}([0-9]+)/)?(w([0-9]+))?(r([0-9]+))?(-([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/Destinationsite/TTDSecond/photo/PhotoDetailView?districtid={R:3}&amp;type=6&amp;resource={R:7}&amp;writing={R:5}&amp;phsid={R:9}" appendQueryString="false" />
+    </rule>
+    <rule name="GS_UrlReg 照片_购物_detail">
+        <match url="^photos/(shop)/([a-z,A-Z]{1,200}([0-9]+)/)?(w([0-9]+))?(r([0-9]+))?(-([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/Destinationsite/TTDSecond/photo/PhotoDetailView?districtid={R:3}&amp;type=5&amp;resource={R:7}&amp;writing={R:5}&amp;phsid={R:9}" appendQueryString="false" />
+    </rule>
+    <rule name="GS_UrlReg 照片_目的地_detail">
+        <match url="^photos/district/(w([0-9]+))?(r([0-9]+))?(-([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/Destinationsite/TTDSecond/photo/PhotoDetailView?type=4&amp;resource={R:4}&amp;writing={R:2}&amp;phsid={R:6}" appendQueryString="false" />
+    </rule>
+    <rule name="照片_目的地_201306_detail">
+        <match url="^photos/([a-z,A-Z]{0,100})([0-9]+)/(w([0-9]+))?(r([0-9]+))?(-([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/Destinationsite/TTDSecond/photo/PhotoDetailView?districtid={R:2}&amp;type=4&amp;resource={R:6}&amp;writing={R:4}&amp;phsid={R:8}" appendQueryString="false" />
+    </rule>
+
+    <rule name="GS_UrlReg 搜索">
+        <match url="^search/(.*[^.aspx])?$" ignoreCase="true" />
+        <action type="Rewrite" url="/You/search/search.aspx?{R:1}" appendQueryString="true" />
+    </rule>
+    <!-- 照片等 end -->
+    <!-- 帮助中心 begin-->
+    <rule name="帮助中心 用户协议">
+        <match url="^htmlpages/(eula).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/Home/{R:1}" appendQueryString="false" />
+    </rule>
+    <rule name="帮助中心 社区指南">
+        <match url="^htmlpages/(guide).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/Home/{R:1}" appendQueryString="false" />
+    </rule>
+    <rule name="帮助中心 经验与等级">
+        <match url="^htmlpages/(exp).html$" ignoreCase="true" />
+        <action type="Redirect" url="/group/topic/f1200013-652875.html" appendQueryString="false" />
+    </rule>
+    <rule name="帮助中心 新手导航">
+        <match url="^htmlpages/(help).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/Home/{R:1}" appendQueryString="false" />
+    </rule>
+    <rule name="帮助中心 关于攻略社区">
+        <match url="^htmlpages/(about).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/Home/{R:1}" appendQueryString="false" />
+    </rule>
+    <rule name="帮助中心 联系我们">
+        <match url="^htmlpages/(contact).html$" ignoreCase="true" />
+        <action type="Redirect" url="/htmlpages/about.html#contact" appendQueryString="false" />
+    </rule>
+    <rule name="帮助中心 加入我们">
+        <match url="^htmlpages/(job).html$" ignoreCase="true" />
+        <action type="Redirect" url="/htmlpages/about.html#job" appendQueryString="false" />
+    </rule>
+
+    <rule name="已导入的规则-发表点评">
+        <match url="^members/writereview.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/members/writereview.aspx" appendQueryString="false" />
+    </rule>
+    <!-- 帮助中心 end-->
+    <!-- 兼容URL st -->
+    <rule name="GS_UrlReg 游记详情页_old1.5">
+        <match url="^travel/d([0-9]+)-([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/TravelSite/Home/Travel?TravelId={R:2}" appendQueryString="false" />
+    </rule>
+    <!-- 兼容URL end -->
+    <!-- 认证官网 st -->
+    <rule name="GS_UrlReg 机构首页">
+        <match url="^official/?$" ignoreCase="true" />
+        <action type="Rewrite" url="/Activities/tourism/tourism/TourismList" appendQueryString="false" />
+    </rule>
+    <rule name="GS_UrlReg 机构索引页列表">
+        <match url="^officialResults/?$" ignoreCase="true" />
+        <action type="Rewrite" url="/Activities/tourism/tourism/TourismList" appendQueryString="false" />
+    </rule>
+    <rule name="GS_UrlReg 机构索引页">
+        <match url="^officialResults/([0-9]+)?$" ignoreCase="true" />
+        <action type="Rewrite" url="/Activities/tourism/tourism/TourismList" appendQueryString="false" />
+    </rule>
+    <rule name="GS_UrlReg 机构用户主页">
+        <match url="^official/([a-z,A-Z,0-9]+).html?$" ignoreCase="true" />
+        <action type="Rewrite" url="/Activities/tourism/tourism/TourismList" appendQueryString="true" />
+    </rule>
+    <rule name="GS_UrlReg 机构用户配置页">
+        <match url="^UserSetting/([a-z,A-Z,0-9]+)?$" ignoreCase="true" />
+        <action type="Rewrite" url="/Activities/tourism/tourism/TourismList" appendQueryString="false" />
+    </rule>
+    <!-- 认证官网 end -->
+
+    <rule name="Sitemap首页">
+        <match url="^sitemap/?$" ignoreCase="true" />
+        <action type="Rewrite" url="/activities/SiteMap/SiteMap/index" appendQueryString="false" />
+    </rule>
+    <rule name="Sitemap国内目的地)">
+        <match url="^sitemap/placedis/c110000" ignoreCase="true" />
+        <action type="Rewrite" url="/activities/SiteMap/SiteMap/Places" appendQueryString="false" />
+    </rule>
+    <rule name="Sitemap国际目的地)">
+        <match url="^sitemap/places.html" ignoreCase="true" />
+        <action type="Rewrite" url="/activities/SiteMap/SiteMap/placedis" appendQueryString="false" />
+    </rule>
+    <rule name="Sitemap国内景点">
+        <match url="^sitemap/spotdis/c0" ignoreCase="true" />
+        <action type="Rewrite" url="/activities/SiteMap/SiteMap/CountrySights" appendQueryString="false" />
+    </rule>
+    <rule name="Sitemap国际景点">
+        <match url="^sitemap/spots.html" ignoreCase="true" />
+        <action type="Rewrite" url="/activities/SiteMap/SiteMap/Spots" appendQueryString="false" />
+    </rule>
+    <rule name="Sitemap热门攻略">
+        <match url="^sitemap/guides[^xml]*$" ignoreCase="true" />
+        <action type="Rewrite" url="/activities/SiteMap/SiteMap/Guides" appendQueryString="false" />
+    </rule>
+    <rule name="Sitemap问答">
+        <match url="^sitemap/asks[^xml]*$" ignoreCase="true" />
+        <action type="Rewrite" url="/activities/SiteMap/SiteMap/Asks" appendQueryString="false" />
+    </rule>
+    <rule name="Sitemap结伴">
+        <match url="^sitemap/events[^xml]*$" ignoreCase="true" />
+        <action type="Rewrite" url="/activities/SiteMap/SiteMap/Events" appendQueryString="false" />
+    </rule>
+    <rule name="Sitemap游记">
+        <match url="^sitemap/travels.html" ignoreCase="true" />
+        <action type="Rewrite" url="/activities/SiteMap/SiteMap/Travels" appendQueryString="false" />
+    </rule>
+    <rule name="Sitemap小组">
+        <match url="^sitemap/groups[^xml]*$" ignoreCase="true" />
+        <action type="Rewrite" url="/activities/SiteMap/SiteMap/Groups" appendQueryString="false" />
+    </rule>
+    <rule name="Sitemap认证官网">
+        <match url="^sitemap/official.html" ignoreCase="true" />
+        <action type="Rewrite" url="/activities/SiteMap/SiteMap/Official" appendQueryString="false" />
+    </rule>
+
+    <!--<action type="Rewrite" url="/activities/SiteMap/SiteMap/SiteMapDetail?type={R:1}&amp;districtId={R:2}&amp;pno={R:4}" appendQueryString="false" />-->
+    <!--
+          <action type="Rewrite" url="/activities/SiteMap/SiteMap/SiteMapDetail?type={R:1}" appendQueryString="false" />
+        </rule>-->
+
+    <rule name="Sitemap-二级列表2">
+        <match url="^sitemap/(place|placedis|spots|spotdis|traveldis)/c([0-9]+)?(-([0-9]+).html)?$" ignoreCase="true" />
+        <action type="Rewrite" url="/activities/SiteMap/SiteMap/SiteMapDetail?type={R:1}&amp;districtId={R:2}&amp;pno={R:4}" appendQueryString="false" />
+    </rule>
+    <!-- sitemap end -->
+
+
+
+    <!-- URL REG 201306 st -->
+    <!-- 游记相关 st -->
+    <rule name="游记详情页_201306">
+        <match url="^travels/([a-z,A-Z,0-9]{0,200})/([0-9]+)(-p([0-9]+))?.html(\?(.*))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/TravelSite/Home/Travel?TravelId={R:2}" appendQueryString="true" />
+    </rule>
+    <rule name="微游记发表_Guide">
+        <match url="^add-travel/guide.html{1}(\?(.*))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/TravelSite/member/WriteTravelSelect" appendQueryString="true" />
+    </rule>
+    <rule name="微游记发表_step1">
+        <match url="^add-travel/step1.html{1}(\?(.*))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/TravelSite/member/WriteTravelOne" appendQueryString="true" />
+    </rule>
+    <rule name="微游记发表_step2">
+        <match url="^add-travel/step2.html{1}(\?(.*))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/TravelSite/member/WriteTravelTwo" appendQueryString="true" />
+    </rule>
+    <rule name="微游记发表_step3">
+        <match url="^add-travel/step3.html{1}(\?(.*))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/TravelSite/member/WriteTravelThree" appendQueryString="true" />
+    </rule>
+    <rule name="微游记发表_step4">
+        <match url="^add-travel/step4.html{1}(\?(.*))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/TravelSite/member/WriteTravelFour" appendQueryString="true" />
+    </rule>
+    <rule name="微游记发表_step5">
+        <match url="^add-travel/step5.html{1}(\?(.*))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/TravelSite/member/WriteTravelFive" appendQueryString="true" />
+    </rule>
+    <!-- 游记相关 end -->
+    <!-- 攻略 st -->
+    <rule name="攻略详情页_目的地_201306">
+        <match url="^guides/([a-z,A-Z]{0,100})([0-9]+).html?$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/ttdsecond/guidebook/detail?districtid={R:2}&amp;type=0" appendQueryString="false" />
+    </rule>
+    <rule name="攻略详情页_专题_201306">
+        <match url="^guides/([a-z,A-Z,0-9]{0,200})/([0-9]+).html?$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/ttdsecond/guidebook/detail?guideid={R:2}&amp;type=1" appendQueryString="false" />
+    </rule>
+    <!-- 攻略 end -->
+    <!-- 结伴 st -->
+    <rule name="结伴首页_同城2_201306">
+        <match url="^citywides/(([a-z,A-Z]{0,100})([0-9]+))(c([0-9]+))?(-p([0-9]+))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/CommunitySite/Activity/Home/Index?city={R:5}&amp;page={R:7}" appendQueryString="true" />
+    </rule>
+    <rule name="结伴详情页_201306">
+        <match url="^events/([a-z,A-Z,0-9]{0,200})/([0-9]+)(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/CommunitySite/Activity/Home/MerchantDetail?eventid={R:2}&amp;replypage={R:4}" appendQueryString="false" />
+    </rule>
+    <rule name="同城详情页_201306">
+        <match url="^citywides/([a-z,A-Z,0-9]{0,200})/([0-9]+)(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/CommunitySite/Activity/Home/MerchantDetail?eventid={R:2}&amp;replypage={R:4}" appendQueryString="false" />
+    </rule>
+    <rule name="商家主页_newsite_201306">
+        <match url="^merchant/([0-9]+)$" ignoreCase="true" />
+        <action type="Rewrite" url="/CommunitySite/Activity/Merchant/Index?userid={R:1}" appendQueryString="false" />
+    </rule>
+    <rule name="活动报名列表_newsite_201306">
+        <match url="^events/([a-z,A-Z,0-9]{0,200})/signup/([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/CommunitySite/Activity/Home/ApplyList?eventid={R:2}" appendQueryString="false" />
+    </rule>
+    <rule name="活动感兴趣列表_newsite_201306">
+        <match url="^events/([a-z,A-Z,0-9]{0,200})/interested/([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/CommunitySite/Activity/Home/InterestedList?eventid={R:2}" appendQueryString="false" />
+    </rule>
+    <rule name="创建活动_newsite_201306">
+        <match url="^events/createactivity$" ignoreCase="true" />
+        <action type="Rewrite" url="/CommunitySite/Activity/Member/CreateActivity" appendQueryString="true" />
+    </rule>
+    <rule name="申请商家_newsite_201306">
+        <match url="^merchant/apply$" ignoreCase="true" />
+        <action type="Rewrite" url="/CommunitySite/Activity/Merchant/ApplyMerchant" appendQueryString="false" />
+    </rule>
+    <rule name="身份选择_newsite_201306">
+        <match url="^events/selectindentity$" ignoreCase="true" />
+        <action type="Rewrite" url="/CommunitySite/Activity/Home/Identity" appendQueryString="false" />
+    </rule>
+    <rule name="预览活动_newsite_201306">
+        <match url="^events/previewactivity$" ignoreCase="true" />
+        <action type="Rewrite" url="/CommunitySite/Activity/Member/PreviewActivity" appendQueryString="false" />
+    </rule>
+    <rule name="商家编辑个人信息_newsite_201306">
+        <match url="^merchant/editperson$" ignoreCase="true" />
+        <action type="Rewrite" url="/CommunitySite/Activity/Merchant/EditPersonMerchant" appendQueryString="false" />
+    </rule>
+    <rule name="商家编辑企业信息_newsite_201306">
+        <match url="^merchant/editenterprise$" ignoreCase="true" />
+        <action type="Rewrite" url="/CommunitySite/Activity/Merchant/EditEnterpriseMerchant" appendQueryString="false" />
+    </rule>
+    <!-- 结伴 end -->
+    <!-- 旅行家主页 st -->
+    <rule name="旅行家主页_首页">
+        <match url="^travellers/?$" ignoreCase="true" />
+        <action type="Rewrite" url="/CommunitySite/Traveller/Home/Index" appendQueryString="false" />
+    </rule>
+    <rule name="旅行家主页_专栏列表页">
+        <match url="^travellers/columnslist(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/CommunitySite/Traveller/Traveller/ColumnsList?pageindex={R:2}" appendQueryString="false" />
+    </rule>
+    <rule name="旅行家主页_专栏详情页">
+        <match url="^travellers/traveller-column.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/CommunitySite/Traveller/Traveller/TravellersColumn" appendQueryString="true" />
+    </rule>
+    <rule name="旅行家主页_360旅游_爸爸去哪儿_专题合作">
+        <match url="^travellers/Activitie-Column.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/CommunitySite/Traveller/Traveller/ActivitieColumn" appendQueryString="true" />
+    </rule>
+    <rule name="旅行家主页_旅行家列表页">
+        <match url="^travellers/travellerlist(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/CommunitySite/Traveller/Traveller/TravellerList?pageindex={R:2}" appendQueryString="false" />
+    </rule>
+    <rule name="旅行家主页_专栏文章列表页">
+        <match url="^travellers/articlelist(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/CommunitySite/Traveller/Articles/ArticleList?pageindex={R:2}" appendQueryString="false" />
+    </rule>
+    <rule name="旅行家主页_专栏文章详情页">
+        <match url="^travellers/articleinfo.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/CommunitySite/Traveller/Articles/articleInfo" appendQueryString="true" />
+    </rule>
+    <rule name="旅行家主页_360旅游_世界杯_专题合作">
+        <match url="^travellers/topic/worldcup.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/CommunitySite/Traveller/Traveller/TravellersColumn_360/15924277" appendQueryString="false" />
+    </rule>
+    <rule name="360旅游_暑期专题合作">
+        <match url="^travellers/topic/holiday2014.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/activities/ActivitiesBy360/ActivitiesBy360/Holiday2014" appendQueryString="true" />
+    </rule>
+    <!-- 旅行家主页 end -->
+    <!-- 运营相关或其他 st -->
+    <!--观致汽车-->
+    <rule name="观致汽车">
+        <match url="^special/Qoros.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/Activities/BusinessAdvertising/BusinessAdvertising/Index" appendQueryString="true" />
+    </rule>
+    <rule name="奇瑞汽车">
+        <match url="^special/qirui.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/activities/QiRui/QiRuiCar/Index" appendQueryString="false" />
+    </rule>
+    <rule name="双蛋页面">
+        <match url="^thematic/2d.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/thematic/event/DoubleEgg" appendQueryString="true" />
+    </rule>
+    <rule name="CTF大会报名页面">
+        <match url="^CTF$" ignoreCase="true" />
+        <action type="Rewrite" url="/Activities/seailand/seailand/ctf3" appendQueryString="true" />
+    </rule>
+    <rule name="智慧旅游 首页">
+        <match url="^intelligence.html?$" ignoreCase="true" />
+        <action type="Rewrite" url="/Activities/intelligence/intelligence/intelligence" appendQueryString="true" />
+    </rule>
+    <rule name="智慧旅游 分页">
+        <match url="^intelligence/([a-z,A-Z,0-9]+).html?$" ignoreCase="true" />
+        <action type="Rewrite" url="/Activities/intelligence/intelligence/{R:1}" appendQueryString="true" />
+    </rule>
+    <rule name="智慧旅游 旗舰馆">
+        <match url="^it/([a-z,A-Z]{0,100})([0-9]+).html?$" ignoreCase="true" />
+        <action type="Rewrite" url="/Activities/tourism/tourism/indexII?offid={R:2}" appendQueryString="true" />
+    </rule>
+    <rule name="智慧旅游 列表页">
+        <match url="^it/$" ignoreCase="true" />
+        <action type="Rewrite" url="/Activities/tourism/tourism/TourismList" appendQueryString="true" />
+    </rule>
+    <rule name="智慧旅游 列表页1">
+        <match url="^it$" ignoreCase="true" />
+        <action type="Rewrite" url="/Activities/tourism/tourism/TourismList" appendQueryString="true" />
+    </rule>
+    <rule name="独立app二维码入口页面">
+        <match url="^special/duliappxiazai.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/Activities/seailand/seailand/IndependentAPP" appendQueryString="true" />
+    </rule>
+    <rule name="当地人下载">
+        <match url="^apptransit.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/Activities/LocalGuide" appendQueryString="true" />
+    </rule>
+    <rule name="新版旅游局官网-镇江">
+        <match url="^tourist/zhenjiang13.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/Activities/tourism/?offid=5" appendQueryString="true" />
+    </rule>
+    <rule name="新版旅游局官网-池州">
+        <match url="^tourist/chizhou825.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/Activities/tourism/?offid=4" appendQueryString="true" />
+    </rule>
+    <rule name="青海卫视香港推广页">
+        <match url="^qhhk.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/Activities/destination/home/qhtvhongkong" appendQueryString="true" />
+    </rule>
+    <rule name="青海卫视三亚推广页">
+        <match url="^qhsy.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/Activities/destination/home/qhtvhongkong?districtId=61" appendQueryString="true" />
+    </rule>
+    <rule name="目的地评选">
+        <match url="^special/2014top10$" ignoreCase="true" />
+        <action type="Rewrite" url="/Activities/seailand/seailand/destpx" appendQueryString="true" />
+    </rule>
+    <rule name="翼虎活动页面">
+        <match url="^special/fordkuga$" ignoreCase="true" />
+        <action type="Rewrite" url="/Activities/seailand/seailand/futeindex" appendQueryString="true" />
+    </rule>
+    <rule name="2014国庆专题页面">
+        <match url="^special/vacation101.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/Activities/seailand/seailand/guoqin" appendQueryString="true" />
+    </rule>
+    <rule name="i旅行8主页">
+        <match url="^special/tahiti.aspx$" ignoreCase="true" />
+        <action type="Rewrite" url="/Activities/ITravel/ITravel/itravel8" appendQueryString="true" />
+    </rule>
+    <rule name="i旅行8主页邀请页面">
+        <match url="^special/tahiti02.aspx$" ignoreCase="true" />
+        <action type="Rewrite" url="/Activities/ITravel/ITravel/i8invitecode" appendQueryString="true" />
+    </rule>
+    <rule name="问答专题之旅游安全">
+        <match url="^special/security.aspx$" ignoreCase="true" />
+        <action type="Rewrite" url="/Activities/ask/askhaidao/askindex" appendQueryString="true" />
+    </rule>
+    <rule name="汽车点评iframe页面">
+        <match url="^special/carreview.html(\?(.*))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/activities/CarReview/CarReview/index" appendQueryString="true" />
+    </rule>
+    <rule name="360合作春节专题">
+        <match url="^special/newyeartopic.html(\?(.*))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/activities/ActivitiesBy360/ActivitiesBy360/index" appendQueryString="true" />
+    </rule>
+    <rule name="长隆水世界">
+        <match url="^special/changlong.html(\?(.*))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/Activities/changlong" appendQueryString="true" />
+    </rule>
+    <rule name="七夕活动">
+        <match url="^special/Lovein77.html(\?(.*))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/Activities/seailand/seailand/tanabata" appendQueryString="true" />
+    </rule>
+
+    <rule name="点评活动页">
+        <match url="^special/dianping.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/Activities/CommentActive/CommentActive/dianpingII" appendQueryString="false" />
+    </rule>
+
+    <rule name="行程大师赛">
+        <match url="^special/ttddesign.html(\?(.*))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/Activities/Trip/Trip/Index" appendQueryString="true" />
+    </rule>
+
+    <rule name="李艾巴黎">
+        <match url="^special/liai.html(\?(.*))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/Activities/BigShot/Home/BaLi" appendQueryString="true" />
+    </rule>
+
+    <rule name="环球投票页">
+        <match url="^2014best.html(\?(.*))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/Activities/seailand/seailand/huanqiulist" appendQueryString="true" />
+    </rule>
+
+    <rule name="环球投票详情页">
+        <match url="^2014best2.html(\?(.*))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/Activities/seailand/seailand/huanqiudetail" appendQueryString="true" />
+    </rule>
+    <rule name="环球投票页2">
+        <match url="^special/huanqiu01.html(\?(.*))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/Activities/seailand/seailand/huanqiulistII" appendQueryString="true" />
+    </rule>
+
+    <rule name="环球投票详情页2">
+        <match url="^special/huanqiu02.html(\?(.*))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/Activities/seailand/seailand/huanqiudetailII" appendQueryString="true" />
+    </rule>
+
+    <rule name="亲子游">
+        <match url="^special/kids.aspx$" ignoreCase="true" />
+        <action type="Rewrite" url="/Activities/ask/askhaidao/Parentage" appendQueryString="true" />
+    </rule>
+
+    <rule name="运营活动_wap页面_1">
+        <match url="^micindex.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/You/micindex.aspx" appendQueryString="false" />
+    </rule>
+    <rule name="运营活动_wap页面">
+        <match url="^wappage/([a-z,A-Z,0-9]{0,200}).html?$" ignoreCase="true" />
+        <action type="Rewrite" url="/You/wappage/{R:1}.aspx" appendQueryString="false" />
+    </rule>
+    <rule name="活动默认页面跳转top10">
+        <match url="^special/?$" ignoreCase="true" />
+        <action type="Rewrite" url="/activities/itravel/itravel/index6" appendQueryString="false" />
+    </rule>
+    <rule name="活动默认页面跳转3top10">
+        <match url="^top10/?$" ignoreCase="true" />
+        <action type="Rewrite" url="/activities/top10/topdistrict/" appendQueryString="false" />
+    </rule>
+    <rule name="活动默认页面跳转2">
+        <match url="^traveller/star/manzhouli/?$" ignoreCase="true" />
+        <action type="Rewrite" url="/communitysite/traveller/star/manzhouli" appendQueryString="false" />
+    </rule>
+    <rule name="双11活动">
+        <match url="^special/1111.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/activities/double11/double11" appendQueryString="false" />
+    </rule>
+    <rule name="top10目的地">
+        <match url="^special/2013top10.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/activities/top10/topdistrict/" appendQueryString="false" />
+    </rule>
+    <rule name="top10旅行家">
+        <match url="^special/2013travellers.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/activities/top10/toptraveller/" appendQueryString="false" />
+    </rule>
+    <rule name="长沙专辑页">
+        <match url="^special/([a-z,A,Z]{1,200})/p([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/You/special/{R:1}-p{R:2}.aspx" appendQueryString="false" />
+    </rule>
+    <rule name="专辑默认跳转">
+        <match url="^special/([a-z,A,Z]{1,200}).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/You/special/{R:1}-p1.aspx" appendQueryString="false" />
+    </rule>
+    <rule name="I旅行5(360合作页)">
+        <match url="^special/canada360.aspx(\?(.*))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/activities/itravel/itravel/index" appendQueryString="true" />
+    </rule>
+    <rule name="I旅行5">
+        <match url="^special/canada.aspx(\?(.*))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/activities/itravel/itravel/indexPage" appendQueryString="true" />
+    </rule>
+    <rule name="I旅行6">
+        <match url="^special/yunnan.aspx(\?(.*))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/activities/itravel/itravel/index6" appendQueryString="true" />
+    </rule>
+    <rule name="go计划">
+        <match url="^special/1go.aspx(\?(.*))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/activities/goplan" appendQueryString="true" />
+    </rule>
+    <rule name="约上大咖去旅行1期">
+        <match url="^special/star1.aspx(\?(.*))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/activities/bigshot" appendQueryString="true" />
+    </rule>
+    <rule name="约上大咖去旅行2期">
+        <match url="^special/ayue.aspx(\?(.*))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/activities/bigshot/home/Ayue" appendQueryString="true" />
+    </rule>
+    <rule name="旅行大不同">
+        <match url="^special/bt1.aspx(\?(.*))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/activities/bigshot/home/tb" appendQueryString="true" />
+    </rule>
+
+    <rule name="海岛游">
+        <match url="^special/haidao1.aspx(\?(.*))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/Activities/SeaIland/SeaIland/index" appendQueryString="true" />
+    </rule>
+
+    <rule name="海岛游问答服务">
+        <match url="^special/beachandisland.aspx(\?(.*))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/Activities/Ask/AskHaidao/Index" appendQueryString="true" />
+    </rule>
+
+    <rule name="海岛游之比基尼">
+        <match url="^special/2014bikini.aspx(\?(.*))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/Activities/SeaIland/SeaIland/bikini" appendQueryString="true" />
+    </rule>
+
+    <rule name="美洲问答">
+        <match url="^special/AskAmerica.aspx(\?(.*))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/Activities/ask/askhaidao/askmeizhou" appendQueryString="true" />
+    </rule>
+
+    <rule name="Go计划二期">
+        <match url="^special/2go.aspx(\?(.*))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/Activities/GoPlan/Home/goplan2" appendQueryString="true" />
+    </rule>
+
+    <rule name="大咖海陆页面">
+        <match url="^special/hailu.aspx(\?(.*))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/Activities/BigShot/Home/HaiLu" appendQueryString="true" />
+    </rule>
+
+    <rule name="360的2期">
+        <match url="^special/360topic2.aspx(\?(.*))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/Activities/ActivitiesII360/ActivitiesII360/Index" appendQueryString="true" />
+    </rule>
+    <rule name="独立app">
+        <match url="^app.html(\?(.*))?$" ignoreCase="true" />
+        <action type="Rewrite" url="/Activities/SeaIland/SeaIland/App" appendQueryString="true" />
+    </rule>
+    <rule name="独立app2">
+        <match url="^app/?$" ignoreCase="true" />
+        <action type="Rewrite" url="/Activities/SeaIland/SeaIland/App" appendQueryString="false" />
+    </rule>
+    <!-- 运营相关或其他 end -->
+    <!-- 目的地聚合页 end -->
+    <rule name="目的地聚合页5">
+        <match url="^lvyou/guonei([0-9]*).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/aggregation/home/bridge?cityID={R:1}" appendQueryString="false" />
+    </rule>
+    <rule name="目的地聚合页_国际_5">
+        <match url="^lvyou/chujing([0-9]*).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/aggregation/foreign/bridge?cityID={R:1}" appendQueryString="false" />
+    </rule>
+    <rule name="目的地聚合页1">
+        <match url="^lvyou/([a-z,A-Z]{1,100})([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/aggregation/home/index?districtId={R:2}" appendQueryString="false" />
+    </rule>
+    <rule name="目的地聚合页3">
+        <match url="^lvyou/([a-z,A-Z]{1,100})([0-9]+)-([a-z,A-Z]{1,100})([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/aggregation/home/index?userDistrictId={R:2}&amp;districtId={R:4}" appendQueryString="false" />
+    </rule>
+    <rule name="目的地聚合页2">
+        <match url="^shangwu/([a-z,A-Z]{1,100})([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/aggregation/home/index2?districtId={R:2}" appendQueryString="false" />
+    </rule>
+    <rule name="目的地聚合页4">
+        <match url="^shangwu/([a-z,A-Z]{1,100})([0-9]+)-([a-z,A-Z]{1,100})([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/aggregation/home/index2?userDistrictId={R:2}&amp;districtId={R:4}" appendQueryString="false" />
+    </rule>
+    <rule name="目的地聚合页6">
+        <match url="^jiudian/([a-z,A-Z]{1,100})([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/aggregation/home/hotel?cityID={R:2}" appendQueryString="false" />
+    </rule>
+    <rule name="目的地聚合页7">
+        <match url="^jiudian/([a-z,A-Z]{1,100})([0-9]+)-([a-z,A-Z]{1,100})([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/aggregation/home/hotel?userCityID={R:2}&amp;cityID={R:4}" appendQueryString="false" />
+    </rule>
+    <rule name="目的地聚合页_国际_1">
+        <match url="^lvyou/([a-z,A-Z]{1,100})([0-9]+)C.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/aggregation/foreign/index?countryId={R:2}" appendQueryString="false" />
+    </rule>
+    <rule name="目的地聚合页_国际_3">
+        <match url="^lvyou/([a-z,A-Z]{1,100})([0-9]+)-([a-z,A-Z]{1,100})([0-9]+)C.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/aggregation/foreign/index?countryId={R:4}&amp;userCityId={R:2}" appendQueryString="false" />
+    </rule>
+    <rule name="目的地聚合页_国际_2">
+        <match url="^shangwu/([a-z,A-Z]{1,100})([0-9]+)C.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/aggregation/foreign/index2?countryId={R:2}" appendQueryString="false" />
+    </rule>
+    <rule name="目的地聚合页_国际_4">
+        <match url="^shangwu/([a-z,A-Z]{1,100})([0-9]+)-([a-z,A-Z]{1,100})([0-9]+)C.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/aggregation/foreign/index2?countryId={R:4}&amp;userCityId={R:2}" appendQueryString="false" />
+    </rule>
+    <!-- 目的地聚合页 end -->
+
+    <!--<rule name="第三方合作页面Url">
+      <match url="^thirdparties/([a-z,A-z,0-9,_\-]+)/([a-z,A-z,0-9,_\-]+).html$" ignoreCase="false" />
+      <action type="Rewrite" url="/You/ThirdParties/{R:1}_{R:2}.aspx" appendQueryString="false" />
+    </rule>-->
+    <rule name="搜狗嵌套页">
+        <match url="^thirdparties/sogou/index.html$" ignoreCase="false" />
+        <action type="Rewrite" url="/Activities/SoGou/YouHome/Index" appendQueryString="false" />
+    </rule>
+
+    <!--360合作相关-->
+    <rule name="目的地印象页_列表">
+        <match url="^badge/([a-z,A-Z]{1,100})([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/activities/DestImpression/DestImpression/DestImpressionList?districtid={R:2}" appendQueryString="false" />
+    </rule>
+    <rule name="目的地印象页_详情">
+        <match url="^badge/([a-z,A-Z]{1,100})([0-9]+)/([0-9]+).html$" ignoreCase="false" />
+        <action type="Rewrite" url="/activities/DestImpression/DestImpression/DestImpressionDetail?districtid={R:2}&amp;tagid={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="360旅游目的地页">
+        <match url="^360guide/([a-z,A-Z]{1,100})([0-9]+).html$" ignoreCase="false" />
+        <action type="Rewrite" url="/activities/DestImpression/DestImpression/DestIndex_360?districtId={R:2}" appendQueryString="false" />
+    </rule>
+    <!--目的地城市页-->
+    <rule name="目的地城市页1">
+        <match url="^district/([0-9]+).html$" ignoreCase="false"/>
+        <action type="Rewrite" url="/destinationsite/home/index?districtid={R:1}" appendQueryString="false" />
+    </rule>
+    <rule name="目的地城市页2">
+        <match url="^place/districts/([0-9]+).html$" ignoreCase="false"/>
+        <action type="Rewrite" url="/destinationsite/home/index?districtid={R:1}" appendQueryString="false" />
+    </rule>
+    <!--目的地指南页-->
+    <rule name="目的地指南页">
+        <match url="^summary/([a-z,A-Z]{1,100})[\:]([a-z,A-Z]{1,100})([0-9]+)(/([a-zA-Z]{1,100}))?.html$" ignoreCase="false"/>
+        <action type="Rewrite" url="destinationsite/TTDSecond/Guide/Index?districtid={R:3}&amp;topicid={R:5}" appendQueryString="false" />
+    </rule>
+    <!--目的地景点列表页-->
+    <rule name="目的地景点列表页1">
+        <match url="^attractions-d([0-9]+)-s([0-9]+)-rdp([0-9]+)/([a-z,A-Z]{1,100}):([a-z,A-Z]{1,100}).html$" ignoreCase="false"/>
+        <action type="Rewrite" url="/destinationsite/sight/poilist?districtid={R:1}&amp;regionid=" appendQueryString="false" />
+    </rule>
+    <rule name="目的地景点列表页2">
+        <match url="^attractions-d([0-9]+)-([a-z,A-Z]{1,100}).html$" ignoreCase="false"/>
+        <action type="Rewrite" url="/destinationsite/sight/poilist?districtid={R:1}&amp;regionid=" appendQueryString="false" />
+    </rule>
+    <!--目的地景点详情页-->
+    <rule name="目的地景点详情页1">
+        <match url="^spot/([0-9]+)/([-,a-z,A-Z,0-9]+).html$" ignoreCase="false"/>
+        <action type="Rewrite" url="/destinationsite/sight/poidetail?districtid=2&amp;Id={R:1}" appendQueryString="false" />
+    </rule>
+    <rule name="目的地景点详情页2">
+        <match url="^sight/([a-z,A-Z,\s]{1,100})([0-9]+)/([0-9]+).html$" ignoreCase="false"/>
+        <action type="Rewrite" url="/destinationsite/sight/poidetail?districtid={R:2}&amp;Id={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="目的地景点详情页3">
+        <match url="^user(attraction)review-d([0-9]+)-([a-z,A-z])([0-9]{0,15})([a-z,A-Z,0-9,\-]{0,20})-([a-z,A-z,0-9,_,\:]{0,100}).html$" ignoreCase="false"/>
+        <action type="Rewrite" url="/destinationsite/sight/poidetail?districtid={R:2}&amp;Id={R:4}" appendQueryString="false" />
+    </rule>
+    <!--目的地餐馆列表页-->
+    <rule name="目的地餐馆列表页">
+        <match url="^restaurant/([a-z,A-Z]{1,100})([0-9]+)/([a-z,A-Z,-]{1,100})([0-9]+).html$" ignoreCase="false"/>
+        <action type="Rewrite" url="/destinationsite/food/poilist?districtId={R:2}&amp;typeId=&amp;regionid=&amp;isPrice=&amp;suitId=&amp;pagenow=" appendQueryString="false" />
+    </rule>
+    <!--目的地餐馆详情页-->
+    <rule name="目的地餐馆详情页1">
+        <match url="^restaurant/([0-9]+)-c([0-9]+).html$" ignoreCase="false"/>
+        <action type="Rewrite" url="/destinationsite/food/poidetail?districtid={R:2}&amp;id={R:1}&amp;star=&amp;tourist=&amp;order=&amp;pagenow=" appendQueryString="false" />
+    </rule>
+    <rule name="目的地餐馆详情页2">
+        <match url="^restaurant/([0-9]+).html$" ignoreCase="false"/>
+        <action type="Rewrite" url="destinationsite/food/poidetail?districtid=2&amp;id={R:1}&amp;star=&amp;tourist=&amp;order=&amp;pagenow=" appendQueryString="false" />
+    </rule>
+
+    <rule name="CMS默认映射位于最后">
+        <match url="^topic/([\w,/]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/thematic/{R:1}" appendQueryString="true" />
+    </rule>
+    <rule name="目的地景点聚合页1">
+        <match url="^lvyou/[a-z,A-Z]{1,100}([0-9]+)/([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/aggregation/sight/index?sightId={R:2}" appendQueryString="false" />
+    </rule>
+    <rule name="目的地景点聚合页2">
+        <match url="^lvyou/[a-z,A-Z]{1,100}([0-9]+)/([0-9]+)s([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/aggregation/sight/index?sightId={R:2}&amp;saleCityId={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="目的地景点聚合页商务1">
+        <match url="^shangwu/[a-z,A-Z]{1,100}([0-9]+)/([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/aggregation/sight/index2?sightId={R:2}" appendQueryString="false" />
+    </rule>
+    <rule name="目的地景点聚合页商务2">
+        <match url="^shangwu/[a-z,A-Z]{1,100}([0-9]+)/([0-9]+)s([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/aggregation/sight/index2?sightId={R:2}&amp;saleCityId={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="目的地H5景点聚合页1">
+        <match url="^lvyou/h5/([a-z,A-Z]{1,100})([0-9]+)/([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/aggregation/h5Sight/index?userDistrictId={R:2}&amp;sightId={R:3}" appendQueryString="true" />
+    </rule>
+    <rule name="天气首页">
+        <match url="^weather/?([0-9]*)$" ignoreCase="true" />
+        <action type="Rewrite" url="/activities/weather/Home/Index?districtId={R:1}" appendQueryString="false" />
+    </rule>
+    <rule name="城市天气详情页">
+        <match url="^weather/([a-z,A-Z]{1,100})([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/activities/weather/Home/City?districtid={R:2}" appendQueryString="true" />
+    </rule>
+    <rule name="天气景点详情页">
+        <match url="^weather/([a-z,A-Z]{1,100})([0-9]+)/([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/activities/weather/Home/Sight?districtid={R:2}&amp;sightId={R:3}" appendQueryString="true" />
+    </rule>
+    <rule name="天气Sitemap首页">
+        <match url="^weather/sitemap/$" ignoreCase="true" />
+        <action type="Rewrite" url="/activities/weather/SiteMap/Index" appendQueryString="false" />
+    </rule>
+    <rule name="天气Sitemap国内城市页">
+        <match url="^weather/sitemap/place-internal.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/activities/weather/SiteMap/PlaceInternal" appendQueryString="false" />
+    </rule>
+    <rule name="天气Sitemap国外城市页">
+        <match url="^weather/sitemap/place-external.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/activities/weather/SiteMap/PlaceExternal" appendQueryString="false" />
+    </rule>
+    <rule name="天气Sitemap国内景点页">
+        <match url="^weather/sitemap/sight-internal.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/activities/weather/SiteMap/SightInternal" appendQueryString="false" />
+    </rule>
+    <rule name="天气Sitemap国外景点页">
+        <match url="^weather/sitemap/sight-external.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/activities/weather/SiteMap/SightExternal" appendQueryString="false" />
+    </rule>
+    <rule name="天气省份列表页">
+        <match url="^weather/sitemap/([a-z,A-Z]{1,100})([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/activities/weather/SiteMap/ProvinceDetail?districtid={R:2}" appendQueryString="true" />
+    </rule>
+    <rule name="天气景点列表页">
+        <match url="^weather/sitemap/(internal|external)-([a-z,A-Z]{1}).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/activities/weather/SiteMap/SightDetail?letter={R:2}&amp;countryType={R:1}" appendQueryString="true" />
+    </rule>
+
+    <rule name="运营活动_特卖汇">
+        <match url="^deals(/)?$" ignoreCase="true" />
+        <action type="Rewrite" url="/activities/seo360/other/deals" appendQueryString="true" />
+    </rule>
+
+    <!--资讯-->
+    <rule name="资讯首页">
+        <match url="^news(/)?$" ignoreCase="true" />
+        <action type="Rewrite" url="/activities/News/NewsInfo/NewsIndex" appendQueryString="true" />
+    </rule>
+    <rule name="资讯列表页">
+        <match url="^news/list-([a-z,A-z]{0,100})(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/Activities/News/NewsInfo/NewsList?index={R:3}&amp;CateNameEn={R:1}" appendQueryString="true" />
+    </rule>
+    <rule name="资讯详情页">
+        <match url="^news/list-([a-z,A-z]{0,100})/([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/Activities/News/NewsInfo/NewsDetail?newsid={R:2}&amp;CateNameEn={R:1}" appendQueryString="true" />
+    </rule>
+    <rule name="资讯目的地列表页">
+        <match url="^news/list-([a-z,A-z]{0,100})([0-9]+)(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/Activities/News/NewsInfo/NewsListByDistrict?districtId={R:2}&amp;index={R:4}" appendQueryString="true" />
+    </rule>
+
+    <rule name="好酒店列表_关键字筛选">
+        <match url="^hotels/([a-z,A-Z]{0,100})?([0-9]+)/(.{1,100})$" ignoreCase="true" />
+        <action type="Rewrite" url="/tophotelsite/list/list?districtId={R:2}&amp;filters={R:3}" appendQueryString="false" />
+    </rule>
+
+    <!--当地-begin-->
+    <rule name="当地_目的地+当地人">
+        <match url="^dangdiren/([a-z,A-Z]{0,100})?([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/DangdiSite/ServiceList/Index?district={R:2}" appendQueryString="false" />
+    </rule>
+    <rule name="当地_当地人向导">
+        <match url="^dangdiren/([a-z,A-Z]{0,100})?([0-9]+)/list(-s([0-9]+))?(-l([0-9]+))?(-g([0-9]+))?(-c([0-9]))?(-d([0-9]+))?(-e([0-9]+))?(-t([0-9]+))?(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/DangdiSite/ServiceList/Index?district={R:2}&amp;serviceType={R:4}&amp;language={R:6}&amp;gender={R:8}&amp;companyLicense={R:10}&amp;driverLicense={R:12}&amp;guideLicense={R:14}&amp;sortType={R:16}&amp;pageIndex={R:18}" appendQueryString="false" />
+    </rule>
+    <rule name="当地_服务详情">
+        <match url="^dangdiren/service/([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/DangdiSite/ServiceDetail/Detail?nativeProductId={R:1}" appendQueryString="false" />
+    </rule>
+    <rule name="当地_商家详情">
+        <match url="^dangdiren/merchant/([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/DangdiSite/MerchantDetail/Detail?nativeMerchantId={R:1}" appendQueryString="false" />
+    </rule>
+    <rule name="当地_服务点评">
+        <match url="^dangdiren/comment/([0-9]+)-service.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/DangdiSite/Comment/ProductCommentList?nativeProductId={R:1}" appendQueryString="false" />
+    </rule>
+    <rule name="当地_我是游客">
+        <match url="^dangdiren/propaganda/tourist.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/DangdiSite/Home/Tourist" appendQueryString="false" />
+    </rule>
+    <rule name="当地_我是向导">
+        <match url="^dangdiren/propaganda/guide.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/DangdiSite/Home/Guide" appendQueryString="false" />
+    </rule>
+    <!--当地-end-->
+
+    <!--地标-begin-->
+    <rule name="地标_列表页">
+        <match url="^situs/([a-z,A-Z]{0,100})?([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/Landmark/list?DistrictId={R:2}" appendQueryString="false" />
+    </rule>
+    <rule name="地标_列表深入页_购物服务">
+        <match url="^situs/([a-z,A-Z]{0,100})?([0-9]+)/list-shopping(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/Landmark/itemlist?DistrictId={R:2}&amp;type=0&amp;page={R:4}" appendQueryString="false" />
+    </rule>
+    <rule name="地标_列表深入页_生活服务">
+        <match url="^situs/([a-z,A-Z]{0,100})?([0-9]+)/list-life(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/Landmark/itemlist?DistrictId={R:2}&amp;type=1&amp;page={R:4}" appendQueryString="false" />
+    </rule>
+    <rule name="地标_列表深入页_餐饮服务">
+        <match url="^situs/([a-z,A-Z]{0,100})?([0-9]+)/list-restaurant(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/Landmark/itemlist?DistrictId={R:2}&amp;type=2&amp;page={R:4}" appendQueryString="false" />
+    </rule>
+    <rule name="地标_列表深入页_医疗保健服务">
+        <match url="^situs/([a-z,A-Z]{0,100})?([0-9]+)/list-medical(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/Landmark/itemlist?DistrictId={R:2}&amp;type=3&amp;page={R:4}" appendQueryString="false" />
+    </rule>
+    <rule name="地标_列表深入页_商户住宅服务">
+        <match url="^situs/([a-z,A-Z]{0,100})?([0-9]+)/list-houses(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/Landmark/itemlist?DistrictId={R:2}&amp;type=4&amp;page={R:4}" appendQueryString="false" />
+    </rule>
+    <rule name="地标_列表深入页_交通设施服务">
+        <match url="^situs/([a-z,A-Z]{0,100})?([0-9]+)/list-traffic(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/Landmark/itemlist?DistrictId={R:2}&amp;type=5&amp;page={R:4}" appendQueryString="false" />
+    </rule>
+    <rule name="地标_列表深入页_体育休闲服务">
+        <match url="^situs/([a-z,A-Z]{0,100})?([0-9]+)/list-sports(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/Landmark/itemlist?DistrictId={R:2}&amp;type=6&amp;page={R:4}" appendQueryString="false" />
+    </rule>
+    <rule name="地标_列表深入页_住宿服务">
+        <match url="^situs/([a-z,A-Z]{0,100})?([0-9]+)/list-stay(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/Landmark/itemlist?DistrictId={R:2}&amp;type=7&amp;page={R:4}" appendQueryString="false" />
+    </rule>
+    <rule name="地标_列表深入页_汽车销售服务">
+        <match url="^situs/([a-z,A-Z]{0,100})?([0-9]+)/list-car(-p([0-9]+))?.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/Landmark/itemlist?DistrictId={R:2}&amp;type=8&amp;page={R:4}" appendQueryString="false" />
+    </rule>
+
+    <rule name="地标_详情页">
+        <match url="^situs/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+).html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/Landmark/detail?DistrictId={R:2}&amp;poiid={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="地标_详情页_地图">
+        <match url="^situs/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)-map.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/Landmark/map?DistrictId={R:2}&amp;poiid={R:3}" appendQueryString="false" />
+    </rule>
+    <rule name="地标_附近POI页_附近景点">
+        <match url="^situs/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)-sight.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/Landmark/nearpoi?DistrictId={R:2}&amp;poiid={R:3}&amp;type=1" appendQueryString="false" />
+    </rule>
+    <rule name="地标_附近POI页_附近餐馆">
+        <match url="^situs/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)-food.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/Landmark/nearpoi?DistrictId={R:2}&amp;poiid={R:3}&amp;type=2" appendQueryString="false" />
+    </rule>
+    <rule name="地标_附近POI页_附近购物">
+        <match url="^situs/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)-shop.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/Landmark/nearpoi?DistrictId={R:2}&amp;poiid={R:3}&amp;type=3" appendQueryString="false" />
+    </rule>
+    <rule name="地标_附近POI页_附近玩乐">
+        <match url="^situs/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)-resort.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/Landmark/nearpoi?DistrictId={R:2}&amp;poiid={R:3}&amp;type=4" appendQueryString="false" />
+    </rule>
+
+    <rule name="地标_附近地标页_附近购物">
+        <match url="^situs/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)-shopping.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/Landmark/nearland?DistrictId={R:2}&amp;poiid={R:3}&amp;type=5" appendQueryString="false" />
+    </rule>
+    <rule name="地标_附近地标页_附近生活">
+        <match url="^situs/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)-life.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/Landmark/nearland?DistrictId={R:2}&amp;poiid={R:3}&amp;type=6" appendQueryString="false" />
+    </rule>
+    <rule name="地标_附近地标页_附近餐饮">
+        <match url="^situs/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)-restaurant.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/Landmark/nearland?DistrictId={R:2}&amp;poiid={R:3}&amp;type=7" appendQueryString="false" />
+    </rule>
+    <rule name="地标_附近地标页_附近医疗保健">
+        <match url="^situs/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)-medical.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/Landmark/nearland?DistrictId={R:2}&amp;poiid={R:3}&amp;type=8" appendQueryString="false" />
+    </rule>
+    <rule name="地标_附近地标页_附近商户住宅">
+        <match url="^situs/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)-houses.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/Landmark/nearland?DistrictId={R:2}&amp;poiid={R:3}&amp;type=9" appendQueryString="false" />
+    </rule>
+    <rule name="地标_附近地标页_附近交通设施">
+        <match url="^situs/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)-traffic.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/Landmark/nearland?DistrictId={R:2}&amp;poiid={R:3}&amp;type=10" appendQueryString="false" />
+    </rule>
+    <rule name="地标_附近地标页_附近体育休闲">
+        <match url="^situs/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)-sports.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/Landmark/nearland?DistrictId={R:2}&amp;poiid={R:3}&amp;type=11" appendQueryString="false" />
+    </rule>
+    <rule name="地标_附近地标页_附近住宿">
+        <match url="^situs/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)-stay.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/Landmark/nearland?DistrictId={R:2}&amp;poiid={R:3}&amp;type=12" appendQueryString="false" />
+    </rule>
+    <rule name="地标_附近地标页_附近汽车销售">
+        <match url="^situs/([a-z,A-Z]{0,100})?([0-9]+)/([0-9]+)-car.html$" ignoreCase="true" />
+        <action type="Rewrite" url="/destinationsite/TTDSecond/Landmark/nearland?DistrictId={R:2}&amp;poiid={R:3}&amp;type=13" appendQueryString="false" />
+    </rule>
+    <!--地标-end-->
+    <!--404页面处理-begin-->
+    <rule name="360旅游" stopProcessing="true">
+        <match url="^activities/destimpression/destimpression(/)?$" ignoreCase="true" />
+        <action type="Redirect" url="http://u.ctrip.com/union/CtripRedirect.aspx?TypeID=2&amp;allianceid=6491&amp;sid=453280&amp;ouid=&amp;jumpUrl=http%3A%2F%2Fyou.ctrip.com%2Factivities%2FDestImpression%2FDestImpression%2FDestIndex_360?districtId%3D2" appendQueryString="true" redirectType="Permanent"/>
+    </rule>
+    <!--404页面处理-end-->
+</rules>

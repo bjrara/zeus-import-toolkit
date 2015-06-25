@@ -1,6 +1,6 @@
 package com.ctrip.zeus;
 
-import com.ctrip.zeus.model.config.Rules;
+import com.ctrip.zeus.config.entity.Rules;
 import com.ctrip.zeus.model.entity.Group;
 import com.ctrip.zeus.model.entity.GroupList;
 import com.ctrip.zeus.model.entity.GroupServer;
@@ -24,7 +24,7 @@ public class Engine {
             ConfigReader configReader = new ConfigReader(configFilename);
             Rules rules = configReader.read();
             Transformer transformer = new Transformer();
-            List<Group> groups = transformer.transform(rules.getRule(), vsId, servers);
+            List<Group> groups = transformer.transform(rules.getRules(), vsId, servers);
             System.out.println("--------------- Export information ---------------");
             System.out.println("Group count: " + groups.size());
             System.out.println("Server count: " + servers.size());
@@ -49,8 +49,12 @@ public class Engine {
         if (!file.exists()) {
             file.createNewFile();
         }
-        Writer writer = new BufferedWriter(new FileWriter(file));
-        writer.write(JsonWriter.write(groupList));
+
+        for (int i = 0; i < groupList.getGroups().size(); i++) {
+            Writer writer = new BufferedWriter(new FileWriter(file, true));
+            writer.write(JsonWriter.write(groupList.getGroups().get(i)));
+            writer.flush();
+        }
     }
 
     private static void writeBatch(List<Group> groupList) throws IOException {
